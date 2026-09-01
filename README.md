@@ -11,14 +11,15 @@ Sitio estático en español de México para el Mercado de Artesanías El Parián
 - Node.js 24.20.0 LTS
 - Wrangler 4.127.1, Cloudflare Workers Static Assets
 
-## Configurar el dominio
+## Dominio
 
-Edita **únicamente** `SITE_URL` en `astro.config.ts`.
+El sitio está configurado para **https://parianmarket.com** en `astro.config.ts` (única fuente de `SITE_URL`). `Astro.site` alimenta canonical, Open Graph, JSON-LD, robots y `@astrojs/sitemap` (`sitemap-index.xml`).
 
-- Vacío: el proyecto puede construirse sin dominio; no genera sitemap ni canonical/OG URL absolutos falsos.
-- Con dominio real: `Astro.site` alimenta canonical, Open Graph, JSON-LD y `@astrojs/sitemap`.
+## PWA
 
-No uses dominios de ejemplo.
+- `public/manifest.webmanifest` — nombre, tema y favicon para instalación.
+- `public/sw.js` — Service Worker: precarga del shell, red-primero para navegación (respaldo offline) y caché-primero para estáticos.
+- Registro del SW en `src/layouts/BaseLayout.astro`; cabeceras de cache en `public/_headers`.
 
 ## Desarrollo y validación
 

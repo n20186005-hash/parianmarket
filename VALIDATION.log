@@ -57,3 +57,34 @@ not present (expected for single-package project)
 
 ## 6) dist inspection
 dist not generated because package installation/build could not run
+
+---
+
+## Ronda de contenido 2026-09-01 (optimización de guía)
+
+- Fuentes verificadas por web: incendio 1796, Manuel de Flón y A. Santamaría Inchárragui, 1801, 1961, 112 locales, nombre "parián" (Manila / arrieros), UNESCO 1987.
+- Cambios:
+  1. `src/data/site.ts`: nuevos módulos `timeline` (5), `services` (8, sólo tipos, sin marcas), `stories` (6), `etiquette` (6+5), `photoSpots` (4); `faqs` ampliado de 6 a 12; `attraction.stalls = 112`.
+  2. `src/pages/index.astro`: historia ampliada a 4 párrafos; nuevos bloques `#linea-tiempo`, `#historias`, `#servicios`, `#fotografia`, `#etiqueta`; JSON-LD con `image`, `hasMap` y `touristType`.
+  3. `src/components/Header.astro`: navegación a Historia / Historias / Artesanías / Servicios / FAQ.
+  4. `src/styles/global.css`: estilos `.timeline`, `.stories/.story/.kind`, `.fac-grid/.fac-card/.hint`, `.do-dont`, `.lead`, `.section-stories` + responsive.
+- Validación: `read_lints` en `src/` = 0 errores. Build local no ejecutado (instalación de dependencias omitida por el usuario; `pnpm install --no-frozen-lockfile` requerido, sin lockfile en el repo).
+
+---
+
+## Ronda de dominio y SEO 2026-09-01 (parianmarket.com + PWA)
+
+- Dominio: `SITE_URL = 'https://parianmarket.com'` en `astro.config.ts`; canonical/OG/JSON-LD/sitemap se alimentan vía `Astro.site`.
+- Datos actualizados en `src/data/site.ts`: `plusCode = '2RV4+7M'`, `latitude 19.04318`, `longitude -98.19586` (coinciden con el embed facilitado).
+- SEO entity binding en `src/pages/index.astro`:
+  - JSON-LD TouristAttraction: `alternateName` ampliado (Puebla + full name, El Parián de Puebla), `isAccessibleForFree: true`, descripción reescrita como guía.
+  - Nuevo nodo `BreadcrumbList` (Inicio → El Parián → Puebla → Puebla → México) + breadcrumb visual en hero.
+  - Primer párrafo con equivalencia semántica full-name = short-name y jerarquía ciudad/estado/país.
+  - iframe de mapa actualizado al embed proporcionado (zh-CN) y fila Plus Code en la sección de mapa.
+  - TDK: title "Mercado de Artesanías El Parián (Puebla) | Guía de visita y ubicación", description con 2RV4+7M.
+  - Fuentes (E-E-A-T): nota editorial + enlaces a portales oficiales estatal/nacional.
+- PWA (nuevo): `public/manifest.webmanifest`, `public/sw.js` (shell precache, network-first para navegación, cache-first para estáticos), registro en `BaseLayout.astro`, metas mobile-web-app-capable, `public/_headers` con Cache-Control para /sw.js y manifest, `public/robots.txt` con Sitemap: https://parianmarket.com/sitemap-index.xml.
+- BaseLayout: geo.position/ICBM actualizados a 19.04318;-98.19586; `og:image:alt` añadido.
+- Validación: `read_lints` en `src/` = 0 errores; `node scripts/qa.mjs` = QA estático: OK.
+- Build VERIFICADO: `pnpm build` exitoso — 4 páginas (/ /cookies /privacidad /terminos) + `sitemap-index.xml`. En `dist/index.html`: canonical ✓, og:url ✓, JSON-LD con BreadcrumbList e isAccessibleForFree ✓, 2RV4+7M ×3 ✓, parianmarket.com ×8 ✓, manifest ✓. `sitemap-0.xml` contiene las 4 URL con https://parianmarket.com/.
+- Ajustes de entorno para que el build funcione en pnpm 11: `pnpm-workspace.yaml` con `packages: ['.']` y `allowBuilds: esbuild/workerd: true`; `scripts/qa.mjs` corregido para excluirse a sí mismo con `path.join` (compatible Windows).

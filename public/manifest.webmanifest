@@ -1,0 +1,29 @@
+{
+  "name": "Mercado de Artesanías El Parián — Guía de visita",
+  "short_name": "El Parián Puebla",
+  "description": "Guía independiente del Mercado de Artesanías El Parián en el Centro Histórico de Puebla: ubicación, horario, artesanías, servicios, historia y consejos de visita.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "lang": "es-MX",
+  "dir": "ltr",
+  "background_color": "#fdf3e0",
+  "theme_color": "#164f9c",
+  "categories": ["travel", "shopping", "education"],
+  "icons": [
+    {
+      "src": "/icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

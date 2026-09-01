@@ -16,3 +16,15 @@
   https://commons.wikimedia.org/wiki/Category:Market_of_El_Pari%C3%A1n
 - Google Maps — ficha facilitada por el solicitante.  
   https://maps.app.goo.gl/N9nQNtMzptexARSx7
+
+## Fuentes para los módulos añadidos (línea de tiempo, historias, servicios)
+
+- Incendio de 1796 (7 de enero, Portal de las Flores, 23 estancos), encargo de Manuel de Flón, proyecto del arquitecto Antonio Santamaría Inchárragui y transición a mercado de artesanías en 1961.  
+  https://mexicoprioridad.com/el-incendio-que-dio-origen-a-el-parian-de-puebla/
+- Historia del mercado: plazuela de San Roque, construcción de 1801, ocupación del inmueble como mercado de artesanías desde 1961, 112 locales, origen del nombre vinculado a arrieros y comercio transpacífico.  
+  https://www.telediario.mx/comunidad/el-parian-historia-del-mercado-de-artesanias-de-puebla
+- Referencia del primer mercado artesanal de Puebla y su construcción en 1801.  
+  https://www.ciudadespatrimonio.mx/el-parian/
+- Contexto sobre el primer mercado de Puebla y el flujo de mercancías del sureste.  
+  https://oem.com.mx/elsoldepuebla/cultura/esta-es-la-historia-de-el-parian-el-primer-mercado-de-puebla-los-tiempos-idos-batalla-del-5-de-mayo-jorge-eduardo-zamora-martinez-baron-rojo-veracruz-capu-19299681
+- Nota: los servicios alrededor del mercado (sanitarios, estacionamiento, alimentos, alojamiento, tiendas, combustible, farmacias, cajeros) se describen únicamente por tipo de servicio y sin nombres comerciales, manteniendo la postura neutral del proyecto.

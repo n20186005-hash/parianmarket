@@ -7,7 +7,8 @@ const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) =
   const p = path.join(dir, e.name);
   return e.isDirectory() ? walk(p) : [p];
 });
-const sourceFiles = walk(root).filter((p) => !p.includes('node_modules') && !p.includes('.git') && !p.includes('scripts/qa.mjs'));
+const selfPath = path.join('scripts', 'qa.mjs');
+const sourceFiles = walk(root).filter((p) => !p.includes('node_modules') && !p.includes('.git') && !p.endsWith(selfPath));
 let failed = false;
 for (const file of sourceFiles) {
   let text; try { text = fs.readFileSync(file, 'utf8'); } catch { continue; }
