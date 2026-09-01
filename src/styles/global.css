@@ -44,3 +44,14 @@
 .do-dont li{font-size:14.5px;opacity:.88;margin:8px 0}
 @media(max-width:900px){.site-header nav{display:none}.hero-grid,.split,.map-grid,.faq-wrap{grid-template-columns:1fr;gap:36px}.hero-panel{transform:none}.cards.four,.nearby-grid,.fac-grid{grid-template-columns:repeat(2,1fr)}.stories,.do-dont{grid-template-columns:1fr}.trust-row{grid-template-columns:1fr}.identity-grid{grid-template-columns:1fr}.section-heading{display:block}.footer-grid{grid-template-columns:1fr 1fr}.footer-grid>div:first-child{grid-column:1/-1}.timeline:before{left:0}}
 @media(max-width:620px){.wrap{width:min(100% - 28px,1180px)}.header-inner{min-height:68px}.site-header .button{display:none}.brand-mark{width:40px;height:40px}.hero{padding-top:50px}.hero-intro{font-size:17px}.cards.four,.visit-grid,.nearby-grid,.fac-grid,.source-links,.footer-grid{grid-template-columns:1fr}.section{padding:66px 0}.section h2,.map-section h2{font-size:38px}.map-frame iframe{min-height:360px}.cookie-card{align-items:flex-start;flex-direction:column}.timeline:before{display:none}.timeline li{grid-template-columns:1fr;gap:6px}.tl-year{text-align:left;font-size:26px}}
+/* ===== Galería documental ===== */
+.section-gallery{background:#f6ecda}
+.gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:38px}
+.gallery-item{margin:0;background:var(--white);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(74,46,23,.05)}
+.gallery-item img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.gallery-item figcaption{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px}
+.gallery-cap{font-family:Georgia,serif;font-size:18px;color:var(--blue2);font-weight:700}
+.gallery-credit{font-size:12px;color:#756553;line-height:1.5}
+.gallery-credit a{color:var(--blue);font-weight:700;text-decoration:none}
+.gallery-credit a:hover{text-decoration:underline}
+@media(max-width:900px){.gallery-grid{grid-template-columns:1fr}}
