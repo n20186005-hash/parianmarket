@@ -1,0 +1,14 @@
+---
+interface Props { compact?: boolean; }
+const { compact = false } = Astro.props;
+---
+<a class="brand" href="/" aria-label="El Parián Puebla — inicio">
+  <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="Símbolo de azulejo y arco de El Parián">
+    <rect x="3" y="3" width="58" height="58" rx="13" fill="#fff8ea" stroke="#164f9c" stroke-width="4"/>
+    <path d="M16 49V31c0-10 7-17 16-17s16 7 16 17v18" fill="#b64b2d"/>
+    <path d="M22 49V32c0-6 4-11 10-11s10 5 10 11v17" fill="#fff8ea"/>
+    <path d="M32 8v10M27 13h10" stroke="#164f9c" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="32" cy="13" r="3.5" fill="#e0a824"/>
+  </svg>
+  {!compact && <span><strong>El Parián</strong><small>Guía de Puebla</small></span>}
+</a>

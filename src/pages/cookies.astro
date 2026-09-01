@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Configuración de cookies | El Parián Puebla" description="Gestiona las preferencias de cookies y analítica de El Parián Puebla.">
+  <article class="legal wrap cookie-page">
+    <p class="eyebrow">Información legal</p>
+    <h1>Configuración de cookies</h1>
+    <p class="updated">Última actualización: septiembre de 2026</p>
+    <p>Usamos tecnologías mínimas para operar el sitio y, sólo con tu elección, analítica para comprender el uso de la guía. Puedes cambiar estas preferencias en cualquier momento desde esta página.</p>
+    <div class="cookie-card">
+      <div><h2>Necesarias</h2><p>Permiten funciones básicas y la conservación local de tus preferencias. No pueden desactivarse desde este panel.</p></div>
+      <label class="switch"><input type="checkbox" checked disabled /><span></span><strong>Siempre activas</strong></label>
+    </div>
+    <div class="cookie-card">
+      <div><h2>Analíticas</h2><p><strong>Google Analytics 4.</strong> Ayuda a entender de forma agregada cómo se usa el sitio. El script no se carga hasta que lo actives.</p></div>
+      <label class="switch"><input id="analytics" type="checkbox" /><span></span><strong>Activar</strong></label>
+    </div>
+    <div class="cookie-card">
+      <div><h2>Preferencias</h2><p>Permite recordar ajustes no esenciales de interfaz que puedan añadirse al sitio. Esta guía es únicamente en español de México.</p></div>
+      <label class="switch"><input id="preferences" type="checkbox" /><span></span><strong>Activar</strong></label>
+    </div>
+    <div class="cookie-card muted">
+      <div><h2>Marketing</h2><p>No instalamos cookies de publicidad personalizada ni scripts de remarketing en esta versión.</p></div>
+      <label class="switch"><input type="checkbox" disabled /><span></span><strong>Desactivado</strong></label>
+    </div>
+    <div class="cookie-actions"><button class="button" id="savePrefs" type="button">Guardar preferencias</button><button class="button button-ghost" id="rejectPrefs" type="button">Rechazar opcionales</button></div>
+    <p id="cookieStatus" class="cookie-status" role="status" aria-live="polite"></p>
+    <h2>Gestión del consentimiento</h2>
+    <p>Las preferencias se guardan en el almacenamiento local de este navegador con la clave <code>elparian-cookie-preferences</code>. Si limpias los datos del navegador, tendrás que configurarlas de nuevo. Desactivar opciones puede limitar mediciones o futuras preferencias, pero no impide consultar el contenido principal.</p>
+  </article>
+  <script is:inline>
+    (() => {
+      const KEY = 'elparian-cookie-preferences';
+      const analytics = document.querySelector('#analytics');
+      const preferences = document.querySelector('#preferences');
+      const status = document.querySelector('#cookieStatus');
+      const read = () => { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (_) { return {}; } };
+      const existing = read();
+      analytics.checked = existing.analytics === true;
+      preferences.checked = existing.preferences === true;
+      const save = (value) => {
+        localStorage.setItem(KEY, JSON.stringify(value));
+        window.dispatchEvent(new CustomEvent('elparian:consent', { detail: value }));
+        status.textContent = 'Preferencias guardadas en este navegador.';
+      };
+      document.querySelector('#savePrefs').addEventListener('click', () => save({ analytics: analytics.checked, preferences: preferences.checked, marketing: false }));
+      document.querySelector('#rejectPrefs').addEventListener('click', () => {
+        analytics.checked = false; preferences.checked = false;
+        save({ analytics: false, preferences: false, marketing: false });
+      });
+    })();
+  </script>
+</BaseLayout>

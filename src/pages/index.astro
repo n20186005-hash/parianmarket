@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { attraction, faqs } from '../data/site';
+
+const pageUrl = Astro.site ? new URL('/', Astro.site).href : undefined;
+const entityId = Astro.site ? new URL('/#mercado-el-parian', Astro.site).href : undefined;
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['TouristAttraction', 'LocalBusiness'],
+      ...(entityId ? { '@id': entityId } : {}),
+      name: attraction.name,
+      alternateName: attraction.alternateName,
+      description: 'Mercado tradicional de artesanías del Centro Histórico de Puebla, asociado a la antigua Plazuela de San Roque y documentado desde 1801.',
+      ...(pageUrl ? { url: pageUrl } : {}),
+      sameAs: [
+        attraction.googleMaps,
+        'https://www.wikidata.org/wiki/Q16606365',
+        'https://commons.wikimedia.org/wiki/Category:Market_of_El_Pari%C3%A1n',
+        'https://visita.pueblacapital.gob.mx/atractivos/los-imperdibles-de-puebla/itemlist/category/31-mercados-de-artesanias'
+      ],
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '6 Norte 205, Centro Histórico',
+        addressLocality: 'Heroica Puebla de Zaragoza',
+        addressRegion: 'Puebla',
+        postalCode: '72000',
+        addressCountry: 'MX'
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: attraction.latitude,
+        longitude: attraction.longitude
+      },
+      openingHoursSpecification: [{
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
+        opens: '10:00',
+        closes: '20:00'
+      }],
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: attraction.rating,
+        reviewCount: attraction.reviewCount,
+        bestRating: 5,
+        worstRating: 1
+      },
+      subjectOf: [
+        { '@type': 'WebPage', name: 'Turismo del Municipio de Puebla', url: 'https://visita.pueblacapital.gob.mx/' },
+        { '@type': 'WebPage', name: 'Secretaría de Desarrollo Turístico de Puebla', url: 'https://sectur.puebla.gob.mx/' }
+      ]
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
+      }))
+    }
+  ]
+};
+---
+<BaseLayout
+  title="Mercado de Artesanías El Parián Puebla | Guía de visita"
+  description="Guía independiente de El Parián en Puebla: horario, artesanías, cómo llegar, estacionamiento, costos, comida cercana, museos y consejos de visita."
+  schema={schema}
+>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Centro Histórico de Puebla · Mercado artesanal</p>
+        <h1>Mercado de Artesanías <em>El Parián</em></h1>
+        <p class="hero-intro">Un corredor de ladrillo, azulejo y oficios poblanos: una parada clásica para descubrir cerámica, textiles, ónix, barro y recuerdos en el corazón histórico de la ciudad.</p>
+        <div class="hero-actions">
+          <a class="button" href="#visita">Planear la visita</a>
+          <a class="button button-ghost" href={attraction.googleMaps} target="_blank" rel="noopener noreferrer">Abrir en Google Maps</a>
+        </div>
+        <div class="trust-row" aria-label="Datos principales">
+          <span><strong>10:00–20:00</strong><small>Horario publicado por turismo municipal</small></span>
+          <span><strong>1801</strong><small>Referencia histórica del mercado</small></span>
+          <span><strong>4.5 / 5</strong><small>28,524 reseñas en la ficha facilitada</small></span>
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="Ficha rápida de El Parián">
+        <div class="tile-badge">PUEBLA</div>
+        <h2>Antes de ir</h2>
+        <dl>
+          <div><dt>Zona</dt><dd>Centro Histórico</dd></div>
+          <div><dt>Tiempo sugerido</dt><dd>45–75 min</dd></div>
+          <div><dt>Acceso</dt><dd>Entrada gratuita en guías municipales consultadas</dd></div>
+          <div><dt>Mejor ritmo</dt><dd>Mañana entre semana</dd></div>
+        </dl>
+        <p class="micro">Consejo: si una pieza se vende como Talavera con denominación de origen, pide información sobre certificación y procedencia.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="identity-strip" aria-label="Identidad del lugar">
+    <div class="wrap identity-grid">
+      <div><span>01</span><p><strong>Mercado de Artesanías El Parián</strong><br/>Puebla de Zaragoza, Puebla, México</p></div>
+      <div><span>02</span><p><strong>Plazuela de San Roque</strong><br/>Antecedente histórico del entorno</p></div>
+      <div><span>03</span><p><strong>Artesanía poblana</strong><br/>Cerámica, textiles, ónix, barro y vidrio</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="historia">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Una plaza hecha mercado</p>
+        <h2>El Parián y la memoria comercial de Puebla</h2>
+      </div>
+      <div class="prose">
+        <p>La historia turística de Puebla relaciona El Parián con la antigua Plazuela de San Roque y sitúa su conformación como mercado en 1801. El conjunto conserva una imagen muy reconocible: fachadas de ladrillo, detalles de azulejo y pequeños locales alineados alrededor del corredor.</p>
+        <p>Hoy funciona principalmente como mercado de artesanías. Su valor para el visitante no está sólo en comprar un recuerdo, sino en reconocer materiales y técnicas vinculadas con la identidad poblana.</p>
+        <div class="source-box"><strong>Entidad verificada:</strong> esta guía usa el nombre completo, ubicación, geodatos y referencias cruzadas de turismo municipal y estatal para evitar confundir El Parián de Puebla con mercados homónimos de otras ciudades.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-blue" id="artesanias">
+    <div class="wrap">
+      <p class="eyebrow light">Qué mirar con atención</p>
+      <h2 class="light">Artesanías que cuentan Puebla</h2>
+      <div class="cards four">
+        <article><span class="card-icon">✦</span><h3>Cerámica y Talavera</h3><p>Platos, azulejos y piezas decorativas con el lenguaje cromático que identifica a Puebla. La certificación importa si buscas Talavera protegida.</p></article>
+        <article><span class="card-icon">⌁</span><h3>Textiles y bordados</h3><p>Prendas, manteles, accesorios y piezas bordadas que reúnen motivos regionales y trabajo manual.</p></article>
+        <article><span class="card-icon">◆</span><h3>Ónix, barro y vidrio</h3><p>Objetos utilitarios y decorativos en materiales habituales de la oferta artesanal poblana.</p></article>
+        <article><span class="card-icon">✺</span><h3>Miniaturas y dulces</h3><p>Pequeños recuerdos y especialidades regionales fáciles de integrar a una visita por el Centro Histórico.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="visita">
+    <div class="wrap">
+      <p class="eyebrow">Plan práctico</p>
+      <h2>Visitar El Parián sin improvisar</h2>
+      <div class="visit-grid">
+        <article class="info-card"><span>Horario</span><h3>Lunes a domingo · 10:00–20:00</h3><p>Horario publicado por Turismo del Municipio de Puebla. En festivos o eventos extraordinarios conviene reconfirmar.</p></article>
+        <article class="info-card"><span>Costos</span><h3>Entrada gratuita en guías municipales</h3><p>Guías del Ayuntamiento han listado El Parián con entrada gratuita. La compra de artesanías es independiente y conviene verificar condiciones extraordinarias en eventos especiales.</p></article>
+        <article class="info-card"><span>Mejor momento</span><h3>10:00–12:00 entre semana</h3><p>Es una recomendación editorial para recorrer con más calma; no es un horario oficial de baja afluencia.</p></article>
+        <article class="info-card"><span>Duración</span><h3>45–75 minutos</h3><p>Reserva hasta 90 minutos si quieres comparar piezas, conversar con vendedores o sumar museos cercanos.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-pattern" id="como-llegar">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Movilidad</p>
+        <h2>Cómo llegar y dónde estacionar</h2>
+      </div>
+      <div class="prose">
+        <h3>A pie desde el Zócalo</h3>
+        <p>El Parián está dentro del Centro Histórico y se integra bien a un recorrido peatonal desde el Zócalo, la Catedral y la zona de museos. El trayecto suele tomar alrededor de 10 minutos según el punto de partida y el ritmo.</p>
+        <h3>Transporte público</h3>
+        <p>Varias rutas circulan por los ejes de Boulevard Héroes del 5 de Mayo y 2 Oriente. Baja en una parada céntrica y completa el último tramo a pie; confirma la ruta vigente el mismo día.</p>
+        <h3>Taxi o aplicación</h3>
+        <p>Usa como destino “Mercado de Artesanías El Parián, Puebla”. En horas con calles cerradas o mucha actividad, puede ser más práctico descender a una o dos cuadras.</p>
+        <h3>Estacionamiento</h3>
+        <p>La ficha municipal no anuncia estacionamiento propio. Hay estacionamientos públicos de pago en el Centro Histórico, incluidos establecimientos en el entorno de 6 Oriente. Revisa tarifa, horario y altura máxima al llegar.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="map-section">
+    <div class="wrap map-grid">
+      <div>
+        <p class="eyebrow">Ubicación exacta</p>
+        <h2>Dos referencias de dirección, un mismo mercado</h2>
+        <p><strong>Turismo municipal:</strong> 6 Norte 205, Centro Histórico.</p>
+        <p><strong>Ficha de Google Maps facilitada:</strong> Mercado de artesanías El Parián local 111, 72000 Heroica Puebla de Zaragoza.</p>
+        <p class="micro">La diferencia corresponde a la forma en que distintas fuentes describen el acceso o el local. Para navegación, usa el pin del mapa.</p>
+      </div>
+      <div class="map-frame">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6708.104670377674!2d-98.19585762292813!3d19.04317938215455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc0e650a29417%3A0x11077ba00041cd86!2sParian%20market!5e1!3m2!1ses-MX!2smx!4v1788188691479!5m2!1ses-MX!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Mapa de Mercado de Artesanías El Parián en Puebla"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="alrededores">
+    <div class="wrap">
+      <div class="section-heading"><div><p class="eyebrow">Haz una ruta</p><h2>Sabores y lugares cercanos</h2></div><p>El Parián funciona mejor como una parada dentro de un paseo por el Centro Histórico.</p></div>
+      <div class="nearby-grid">
+        <article class="nearby food"><span>Comer</span><h3>Sabores poblanos</h3><p>Busca mole poblano, chalupas, cemitas, molotes y dulces tradicionales. La zona del Centro Histórico concentra múltiples opciones; esta guía no prioriza negocios concretos.</p></article>
+        <article class="nearby"><span>Museo</span><h3>Casa de los Hermanos Serdán</h3><p>Una de las visitas culturales más próximas, asociada al inicio de la Revolución Mexicana.</p></article>
+        <article class="nearby"><span>Arte</span><h3>San Pedro Museo de Arte</h3><p>Un buen complemento para cambiar del comercio artesanal a una lectura museística del patrimonio poblano.</p></article>
+        <article class="nearby"><span>Patrimonio</span><h3>Casa de Alfeñique y Biblioteca Palafoxiana</h3><p>Dos referencias clave del Centro Histórico que pueden integrarse al mismo recorrido peatonal.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap faq-wrap">
+      <div><p class="eyebrow">Preguntas frecuentes</p><h2>FAQ de El Parián Puebla</h2></div>
+      <div class="faq-list">
+        {faqs.map((item) => <details><summary>{item.q}</summary><p>{item.a}</p></details>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section sources">
+    <div class="wrap">
+      <p class="eyebrow">Fuentes de referencia</p>
+      <h2>Información contrastada, no afiliación oficial</h2>
+      <div class="source-links">
+        <a href="https://visita.pueblacapital.gob.mx/atractivos/los-imperdibles-de-puebla/itemlist/category/31-mercados-de-artesanias" target="_blank" rel="noopener noreferrer"><strong>Turismo del Municipio de Puebla</strong><span>Dirección y horario del mercado</span></a>
+        <a href="https://sectur.puebla.gob.mx/" target="_blank" rel="noopener noreferrer"><strong>Secretaría de Desarrollo Turístico de Puebla</strong><span>Contexto turístico estatal</span></a>
+        <a href="https://visitmexico.com/" target="_blank" rel="noopener noreferrer"><strong>VisitMexico</strong><span>Referencia turística nacional</span></a>
+        <a href="https://commons.wikimedia.org/wiki/Category:Market_of_El_Pari%C3%A1n" target="_blank" rel="noopener noreferrer"><strong>Wikimedia Commons</strong><span>Fotografía documental y licencias</span></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

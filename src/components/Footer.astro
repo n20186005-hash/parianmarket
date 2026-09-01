@@ -1,0 +1,28 @@
+---
+import Logo from './Logo.astro';
+import { authorityLinks } from '../data/site';
+---
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <Logo />
+      <p class="footer-lead">Guía independiente para comprender y visitar el Mercado de Artesanías El Parián, en el Centro Histórico de Puebla.</p>
+    </div>
+    <div>
+      <h2>Información</h2>
+      <a href="/privacidad/">Privacidad</a>
+      <a href="/terminos/">Términos de servicio</a>
+      <a href="/cookies/">Configuración de cookies</a>
+    </div>
+    <div>
+      <h2>Fuentes públicas</h2>
+      {authorityLinks.map((item) => <a href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a>)}
+    </div>
+  </div>
+  <div class="wrap footer-notes">
+    <p>Este sitio es un proyecto independiente y sin fines de lucro de información para visitantes; no tiene relación de dependencia con el H. Ayuntamiento de Puebla, el Gobierno del Estado de Puebla, la Secretaría de Turismo del Gobierno de México ni con la administración del mercado.</p>
+    <p>La información histórica y turística se contrasta con publicaciones del H. Ayuntamiento de Puebla y su Secretaría de Economía y Turismo, la Secretaría de Desarrollo Turístico del Gobierno del Estado de Puebla y la Secretaría de Turismo del Gobierno de México. No contiene recomendaciones comerciales pagadas.</p>
+    <p>Derechos de imagen: la titularidad y los derechos de las fotografías corresponden a sus autores originales y se respetan conforme a las licencias indicadas en los créditos.</p>
+    <p>© 2026 Guía de El Parián Puebla. Todos los derechos reservados.</p>
+  </div>
+</footer>
