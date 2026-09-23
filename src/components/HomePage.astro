@@ -1,0 +1,345 @@
+---
+import { content } from '../data/content';
+import { attraction } from '../data/site';
+import * as es from '../data/site';
+import * as en from '../data/site.en';
+import WeatherSection from './WeatherSection.astro';
+
+interface Props { locale: 'es' | 'en'; }
+const { locale } = Astro.props;
+const copy = content[locale];
+const data = locale === 'es' ? es : en;
+const prefix = locale === 'es' ? '' : '/en';
+---
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <nav class="breadcrumb" aria-label="Migas de pan">
+        <a href={prefix + '/'}>{copy.breadcrumbHome}</a><span aria-hidden="true">›</span>
+        <span>{attraction.name}</span><span aria-hidden="true">›</span>
+        <span>{attraction.city}</span><span aria-hidden="true">›</span>
+        <span>{attraction.state}</span><span aria-hidden="true">›</span>
+        <span>{attraction.country}</span>
+      </nav>
+      <p class="eyebrow">{copy.hero.eyebrow}</p>
+      <h1 set:html={copy.hero.h1Html} />
+      <p class="hero-intro" set:html={copy.hero.introHtml} />
+      <div class="hero-actions">
+        <a class="button" href={prefix + '/#visita'}>{copy.hero.cta1}</a>
+        <a class="button button-ghost" href={attraction.googleMaps} target="_blank" rel="noopener noreferrer">{copy.hero.cta2}</a>
+      </div>
+      <div class="trust-row" aria-label="Datos principales">
+        {copy.hero.trust.map((t) => (
+          <span><strong>{t.big}</strong><small>{t.small}</small></span>
+        ))}
+      </div>
+    </div>
+    <aside class="hero-panel" aria-label="Ficha rápida de El Parián">
+      <div class="tile-badge">{copy.hero.panel.badge}</div>
+      <h2>{copy.hero.panel.title}</h2>
+      <dl>
+        {copy.hero.panel.dl.map((row) => (
+          <div><dt>{row.dt}</dt><dd>{row.dd}</dd></div>
+        ))}
+      </dl>
+      <p class="micro">{copy.hero.panel.micro}</p>
+    </aside>
+  </div>
+</section>
+
+<section class="identity-strip" aria-label="Identidad del lugar">
+  <div class="wrap identity-grid">
+    {copy.identity.map((it) => (
+      <div><span>{it.n}</span><p set:html={it.html} /></div>
+    ))}
+  </div>
+</section>
+
+<section class="section" id="historia">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">{copy.history.eyebrow}</p>
+      <h2>{copy.history.h2}</h2>
+    </div>
+    <div class="prose">
+      {copy.history.paragraphs.map((p) => <p>{p}</p>)}
+      <div class="source-box" set:html={copy.history.sourceBoxHtml} />
+    </div>
+  </div>
+</section>
+
+<section class="section section-timeline" id="linea-tiempo">
+  <div class="wrap">
+    <p class="eyebrow">{copy.timeline.eyebrow}</p>
+    <h2>{copy.timeline.h2}</h2>
+    <ol class="timeline">
+      {data.timeline.map((item) => (
+        <li>
+          <span class="tl-year">{item.year}</span>
+          <div>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<section class="section section-stories" id="historias">
+  <div class="wrap">
+    <p class="eyebrow">{copy.stories.eyebrow}</p>
+    <h2>{copy.stories.h2}</h2>
+    <div class="stories">
+      {data.stories.map((item) => (
+        <article class="story">
+          <span class="kind">{item.tag}</span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section section-blue" id="artesanias">
+  <div class="wrap">
+    <p class="eyebrow light">{copy.artesanias.eyebrow}</p>
+    <h2 class="light">{copy.artesanias.h2}</h2>
+    <div class="cards four">
+      {copy.artesanias.cards.map((c) => (
+        <article><span class="card-icon">{c.icon}</span><h3>{c.title}</h3><p>{c.text}</p></article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="visita">
+  <div class="wrap">
+    <p class="eyebrow">{copy.visita.eyebrow}</p>
+    <h2>{copy.visita.h2}</h2>
+    <div class="visit-grid">
+      {copy.visita.cards.map((c) => (
+        <article class="info-card"><span>{c.span}</span><h3>{c.h3}</h3><p>{c.text}</p></article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<WeatherSection locale={locale} />
+
+<section class="section" id="servicios">
+  <div class="wrap">
+    <p class="eyebrow">{copy.servicios.eyebrow}</p>
+    <h2>{copy.servicios.h2}</h2>
+    <p class="lead">{copy.servicios.lead}</p>
+    <div class="fac-grid">
+      {data.services.map((item) => (
+        <article class="fac-card">
+          <span class="fac-icon" aria-hidden="true">{item.icon}</span>
+          <span class="fac-label">{item.label}</span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+          <span class="hint">{item.hint}</span>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section section-pattern" id="como-llegar">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">{copy.comoLlegar.eyebrow}</p>
+      <h2>{copy.comoLlegar.h2}</h2>
+    </div>
+    <div class="prose">
+      {data.airportTransit.map((item) => (
+        <>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </>
+      ))}
+      {copy.comoLlegar.blocks.map((b) => (
+        <>
+          <h3>{b.h3}</h3>
+          <p>{b.text}</p>
+        </>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="map-section">
+  <div class="wrap map-grid">
+    <div>
+      <p class="eyebrow">{copy.map.eyebrow}</p>
+      <h2>{copy.map.h2}</h2>
+      {copy.map.linesHtml.map((l) => <p set:html={l} />)}
+      <p><strong>{copy.map.plusCodeLabel}</strong> {attraction.plusCode} · {copy.map.plusCodeTail}</p>
+      <p class="micro">{copy.map.micro}</p>
+      <p class="gov-links" set:html={copy.map.govLinksHtml} />
+    </div>
+    <div class="map-frame">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6708.104670377674!2d-98.19585762292813!3d19.04317938215455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc0e650a29417%3A0x11077ba00041cd86!2sParian%20market!5e1!3m2!1szh-CN!2s!4v1788188691479!5m2!1szh-CN!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title={copy.map.iframeTitle}></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="alrededores">
+  <div class="wrap">
+    <div class="section-heading"><div><p class="eyebrow">{copy.alrededores.eyebrow}</p><h2>{copy.alrededores.h2}</h2></div><p>{copy.alrededores.lead}</p></div>
+    <div class="nearby-grid">
+      {copy.alrededores.cards.map((c) => (
+        <article class={c.cls}><span>{c.span}</span><h3>{c.h3}</h3><p>{c.text}</p></article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="fotografia">
+  <div class="wrap">
+    <div class="section-heading"><div><p class="eyebrow">{copy.fotografia.eyebrow}</p><h2>{copy.fotografia.h2}</h2></div><p>{copy.fotografia.lead}</p></div>
+    <div class="nearby-grid">
+      {data.photoSpots.map((item) => (
+        <article class="nearby">
+          <span>{locale === 'es' ? 'Fotografía' : 'Photography'}</span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section section-gallery" id="galeria">
+  <div class="wrap">
+    <div class="section-heading">
+      <div><p class="eyebrow">{copy.galeria.eyebrow}</p><h2>{copy.galeria.h2}</h2></div>
+      <p>{copy.galeria.lead}</p>
+    </div>
+    <div class="gallery-grid">
+      {copy.galeria.items.map((item) => (
+        <figure class="gallery-item">
+          <img src="/images/el-parian-hero.jpg" alt={item.alt} width="4000" height="3000" loading="lazy" decoding="async" />
+          <figcaption>
+            <span class="gallery-cap">{item.cap}</span>
+            <span class="gallery-credit">{copy.galeria.creditLabel}: {item.author} · <a href={item.href} target="_blank" rel="noopener noreferrer">{copy.galeria.seeLabel}</a></span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section section-brick" id="etiqueta">
+  <div class="wrap">
+    <p class="eyebrow light">{copy.etiqueta.eyebrow}</p>
+    <h2 class="light">{copy.etiqueta.h2}</h2>
+    <div class="do-dont">
+      <div>
+        <h3>{copy.etiqueta.doTitle}</h3>
+        <ul>{data.etiquette.do.map((item) => <li>{item}</li>)}</ul>
+      </div>
+      <div>
+        <h3>{copy.etiqueta.dontTitle}</h3>
+        <ul>{data.etiquette.dont.map((item) => <li>{item}</li>)}</ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-pattern" id="temporadas">
+  <div class="wrap">
+    <p class="eyebrow">{copy.temporadas.eyebrow}</p>
+    <h2>{copy.temporadas.h2}</h2>
+    <p class="lead">{copy.temporadas.lead}</p>
+    <table class="strategy-table">
+      <thead><tr>{copy.temporadas.tableHead.map((h) => <th>{h}</th>)}</tr></thead>
+      <tbody>
+        {data.seasonalStrategy.map((s) => (
+          <tr>
+            <td>{s.season}<br /><small>{s.months}</small></td>
+            <td>{s.climate}</td>
+            <td>{s.advice}</td>
+            <td>{s.pack}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="climate-note">{copy.temporadas.climateNote}</p>
+  </div>
+</section>
+
+<section class="section" id="rutas">
+  <div class="wrap">
+    <div class="section-heading"><div><p class="eyebrow">{copy.rutas.eyebrow}</p><h2>{copy.rutas.h2}</h2></div><p>{copy.rutas.lead}</p></div>
+    <div class="route-grid">
+      {data.audienceRoutes.map((r) => (
+        <article class="route-card">
+          <span class="route-tag">{r.tag}</span>
+          <h3>{r.title}</h3>
+          <p>{r.text}</p>
+          <ul>{r.items.map((i) => <li>{i}</li>)}</ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section section-blue" id="itinerarios">
+  <div class="wrap">
+    <p class="eyebrow light">{copy.itinerarios.eyebrow}</p>
+    <h2 class="light">{copy.itinerarios.h2}</h2>
+    <p class="lead light">{copy.itinerarios.lead}</p>
+    <div class="itin-grid">
+      {data.itineraries.map((it) => (
+        <article class="itin-card">
+          <span class="itin-type">{it.type}</span>
+          <h3>{it.title}</h3>
+          <p class="itin-dur">{locale === 'es' ? 'Duración estimada: ' : 'Estimated duration: '}{it.duration}</p>
+          <ol>{it.steps.map((s) => <li>{s}</li>)}</ol>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="responsabilidad">
+  <div class="wrap">
+    <p class="eyebrow">{copy.responsabilidad.eyebrow}</p>
+    <h2>{copy.responsabilidad.h2}</h2>
+    <p class="lead">{copy.responsabilidad.lead}</p>
+    <div class="fac-grid">
+      {data.visitorResponsibility.map((v) => (
+        <article class="fac-card">
+          <span class="fac-icon" aria-hidden="true">{v.icon}</span>
+          <h3>{v.title}</h3>
+          <p>{v.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="wrap faq-wrap">
+    <div><p class="eyebrow">{copy.faq.eyebrow}</p><h2>{copy.faq.h2}</h2></div>
+    <div class="faq-list">
+      {data.faqs.map((item) => <details><summary>{item.q}</summary><p>{item.a}</p></details>)}
+    </div>
+  </div>
+</section>
+
+<section class="section sources">
+  <div class="wrap">
+    <p class="eyebrow">{copy.sources.eyebrow}</p>
+    <h2>{copy.sources.h2}</h2>
+    <div class="source-links">
+      {copy.sources.links.map((l) => (
+        <a href={l.href} target="_blank" rel="noopener noreferrer"><strong>{l.strong}</strong><span>{l.span}</span></a>
+      ))}
+    </div>
+    <div class="source-note" set:html={copy.sources.noteHtml} />
+  </div>
+</section>

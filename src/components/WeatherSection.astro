@@ -1,0 +1,130 @@
+---
+import { attraction } from '../data/site';
+import { content } from '../data/content';
+interface Props { locale: 'es' | 'en'; }
+const { locale } = Astro.props;
+const copy = content[locale].weather;
+---
+<section class="section section-weather" id="clima">
+  <div class="wrap">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">{copy.eyebrow}</p>
+        <h2>{copy.h2}</h2>
+      </div>
+      <p>{copy.lead}</p>
+    </div>
+    <div class="weather-card" id="weather" data-locale={locale} data-lat={attraction.latitude} data-lon={attraction.longitude} aria-live="polite">
+      <div class="weather-skeleton"><p>{locale === 'es' ? 'Cargando el clima actual…' : 'Loading current weather…'}</p></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { buildWeatherUrl, wmo, shortDay, kmhToBeaufort, buildAdvice } from '../lib/weather';
+
+  type Locale = 'es' | 'en';
+  const CACHE_TTL = 30 * 60 * 1000;
+  const el = document.getElementById('weather') as HTMLElement | null;
+
+  const block = (title: string, items: string[]) =>
+    `<div class="w-block"><h3>${title}</h3><ul>${items.map((a) => `<li>${a}</li>`).join('')}</ul></div>`;
+
+  const render = (data: any, locale: Locale) => {
+    const now = data.now;
+    const day = data.days[0];
+    const cur = wmo(now.code);
+    const bft = kmhToBeaufort(now.windSpeed);
+    const advice = buildAdvice(data, locale);
+    const labels = locale === 'es'
+      ? { outfit: '出行穿搭', plan: '游玩安排', items: '随身物品', risk: '风险提醒', pop: 'lluvia' }
+      : { outfit: 'What to wear', plan: 'What to do', items: 'What to bring', risk: 'Risk', pop: 'rain' };
+    const days = data.days
+      .map((d: any) => {
+        const c = wmo(d.code);
+        return `<div class="wday">
+          <span class="wd-name">${shortDay(d.date)}</span>
+          <span class="wd-ico">${c.icon}</span>
+          <span class="wd-lab">${c.label}</span>
+          <span class="wd-temp">${Math.round(d.tMax)}° / ${Math.round(d.tMin)}°</span>
+          <span class="wd-pop">${d.precipProb}% ${labels.pop}</span>
+        </div>`;
+      })
+      .join('');
+    const risks = advice.risk.map((a: string) => `<li>${a}</li>`).join('');
+    const adviceBlocks = [
+      advice.outfit.length ? block(labels.outfit, advice.outfit) : '',
+      advice.plan.length ? block(labels.plan, advice.plan) : '',
+      advice.items.length ? block(labels.items, advice.items) : ''
+    ].join('');
+    el!.innerHTML = `
+      <div class="weather-now">
+        <div class="wn-main">
+          <span class="wn-ico">${cur.icon}</span>
+          <div>
+            <span class="wn-temp">${Math.round(now.temperature)}°</span>
+            <span class="wn-desc">${cur.label}</span>
+          </div>
+        </div>
+        <dl class="wn-meta">
+          <div><dt>${locale === 'es' ? 'Sensación' : 'Feels like'}</dt><dd>${Math.round(now.apparent)}°</dd></div>
+          <div><dt>${locale === 'es' ? 'Lluvia hoy' : 'Rain today'}</dt><dd>${day.precipProb}%</dd></div>
+          <div><dt>${locale === 'es' ? 'Viento' : 'Wind'}</dt><dd>${bft} Bft · ${Math.round(now.windSpeed)} km/h</dd></div>
+          <div><dt>${locale === 'es' ? 'Humedad' : 'Humidity'}</dt><dd>${now.humidity}%</dd></div>
+        </dl>
+      </div>
+      <p class="w-summary">${advice.summary}</p>
+      ${advice.risk.length ? `<div class="w-alert"><strong>⚠️ ${labels.risk}</strong><ul>${risks}</ul></div>` : ''}
+      <div class="w-advice3">${adviceBlocks}</div>
+      <div class="w-grid">${days}</div>
+      <p class="w-note">${locale === 'es' ? 'Pronóstico consultado el' : 'Forecast checked on'} ${new Date(data.fetchedAt).toLocaleString(locale === 'es' ? 'es-MX' : 'en-US')}.</p>
+    `;
+  };
+
+  const fail = (locale: Locale) => {
+    el!.innerHTML = `<div class="weather-fallback"><p>${locale === 'es' ? 'No se pudo cargar el clima en este momento. Revisa el pronóstico en tu aplicación habitual antes de salir.' : 'Weather could not be loaded right now. Check the forecast in your usual app before leaving.'}</p></div>`;
+  };
+
+  if (el) {
+    const locale = (el.dataset.locale || 'es') as Locale;
+    const lat = parseFloat(el.dataset.lat || '0');
+    const lon = parseFloat(el.dataset.lon || '0');
+    const key = `elparian-weather-${locale}-${lat.toFixed(3)},${lon.toFixed(3)}`;
+    try {
+      const cached = JSON.parse(localStorage.getItem(key) || 'null');
+      if (cached && cached.fetchedAt && Date.now() - cached.fetchedAt < CACHE_TTL) {
+        render(cached, locale);
+      } else {
+        const res = await fetch(buildWeatherUrl(lat, lon));
+        if (!res.ok) throw new Error('bad');
+        const j = await res.json();
+        const data = {
+          now: {
+            temperature: j.current.temperature_2m,
+            apparent: j.current.apparent_temperature,
+            humidity: j.current.relative_humidity_2m,
+            windSpeed: j.current.wind_speed_10m,
+            code: j.current.weather_code,
+            isDay: j.current.is_day,
+            uv: j.current.uv_index
+          },
+          days: j.daily.time.map((t: string, i: number) => ({
+            date: t,
+            code: j.daily.weather_code[i],
+            tMax: j.daily.temperature_2m_max[i],
+            tMin: j.daily.temperature_2m_min[i],
+            precipProb: j.daily.precipitation_probability_max[i],
+            windMax: j.daily.wind_speed_10m_max[i],
+            uvMax: j.daily.uv_index_max[i]
+          })),
+          timezone: j.timezone,
+          fetchedAt: Date.now()
+        };
+        localStorage.setItem(key, JSON.stringify(data));
+        render(data, locale);
+      }
+    } catch (e) {
+      fail(locale);
+    }
+  }
+</script>

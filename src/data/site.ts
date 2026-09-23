@@ -12,7 +12,7 @@ export const attraction = {
   longitude: -98.19586,
   googleMaps: 'https://maps.app.goo.gl/N9nQNtMzptexARSx7',
   rating: 4.5,
-  reviewCount: 28524,
+  reviewCount: 28579,
   openingHours: '10:00–20:00',
   openingDays: 'Lunes a domingo',
   founded: '1801',
@@ -238,5 +238,153 @@ export const faqs = [
   {
     q: '¿Puedo llegar a El Parián en transporte público?',
     a: 'Sí. Varias rutas circulan por los ejes de Boulevard Héroes del 5 de Mayo y 2 Oriente. Baja en una parada céntrica y completa el último tramo a pie; confirma la ruta vigente el mismo día.'
+  }
+] as const;
+
+// Nombre SEO del sitio: «atracción + ciudad + guía de visita».
+export const SITE_NAME = 'Mercado de Artesanías El Parián Puebla — Guía de visita';
+
+// Cómo llegar desde los aeropuertos y nodos lejanos (tipo-neutral, sin nombres de empresa).
+export const airportTransit = [
+  {
+    mode: 'Aeropuerto de Puebla',
+    title: 'Desde el Aeropuerto Internacional de Puebla (PBC)',
+    text: 'El PBC (Hermanos Serdán) queda a unos 25–35 km del Centro Histórico. En taxi o aplicación el trayecto suele tomar 25–40 minutos según el tráfico; también hay servicio de autobús y mostradores de renta de auto en el aeropuerto. Como destino indica «Mercado de Artesanías El Parián, Centro Histórico».'
+  },
+  {
+    mode: 'Ciudad de México',
+    title: 'Desde la Ciudad de México (AICM / AIFA)',
+    text: 'Muchas personas llegan en autobús ejecutivo desde el Centro de la Ciudad de México o el AICM hasta la Central de Autobuses de Puebla (2–2.5 h), y desde ahí en taxi o aplicación al Centro (~15–25 min). Desde el AIFA el tiempo es mayor; confirma horarios el mismo día.'
+  }
+] as const;
+
+// Estrategia estacional (promedios climáticos típicos de Puebla, no atribuidos a agencias extranjeras).
+export const seasonalStrategy = [
+  {
+    season: 'Invierno',
+    months: 'dic – feb',
+    climate: 'Templado-frío de altiplano: noches de 8–12 °C, días 18–22 °C. Frentes fríos («nortes») ocasionales.',
+    advice: 'Buena luz y poca lluvia para fotografiar los arcos; lleva chaqueta ligera para la tarde y la noche.',
+    pack: 'Chaqueta, capa fina'
+  },
+  {
+    season: 'Primavera',
+    months: 'mar – may',
+    climate: 'Seco y agradable: días 22–27 °C. Temporada de festividades locales (Semana Santa, aniversario de la ciudad).',
+    advice: 'Una de las mejores épocas para recorrer a pie; reserva con antelación en Semana Santa y puentes.',
+    pack: 'Gafas de sol, agua'
+  },
+  {
+    season: 'Verano / lluvias',
+    months: 'jun – oct',
+    climate: 'Lluvias por las tardes, noches frescas; días 20–25 °C. Es el régimen de lluvias de altiplano.',
+    advice: 'Visita por la mañana; lleva paraguas o impermeable y calzado cómodo para los pasillos.',
+    pack: 'Paraguas, calzado cómodo'
+  },
+  {
+    season: 'Otoño',
+    months: 'oct – nov',
+    climate: 'Transición seca: días 20–24 °C, cielos despejados y buena visibilidad.',
+    advice: 'Excelente para combinar el mercado con los museos del primer cuadro sin prisas.',
+    pack: 'Ropa en capas'
+  }
+] as const;
+
+// Rutas por tipo de visitante (tipo-neutral, sin recomendar comercios concretos).
+export const audienceRoutes = [
+  {
+    tag: 'Familias',
+    title: 'Ruta en familia',
+    text: 'Recorrido corto y en planta baja, con pausas y opciones para niños.',
+    items: [
+      'Empiecen por los puestos de cerámica, miniaturas y dulces típicos.',
+      'Parada de comida poblana en el primer cuadro (mole, chalupas, cemitas).',
+      'Ubiquen baños públicos cercanos antes de iniciar el recorrido.',
+      'Cierren con un museo vecino accesible (San Pedro o Casa de Alfeñique).'
+    ]
+  },
+  {
+    tag: 'Fotografía',
+    title: 'Ruta de luz y detalle',
+    text: 'Pensada para retratar arcos, azulejo y el oficio artesanal con respeto.',
+    items: [
+      'Lleguen entre 10:00 y 11:00 para luz rasante en los arcos y pasillos.',
+      'Acerquen al azulejo y al ladrillo; eviten el flash directo en piezas.',
+      'Pidan permiso antes de retratar puestos y artesanos.',
+      'En tardes de lluvia, aprovechen interiores y el color saturado.'
+    ]
+  },
+  {
+    tag: 'Movilidad reducida',
+    title: 'Ruta de bajo esfuerzo',
+    text: 'Corredores en planta baja y descansos a la sombra; sin escaleras en la zona principal.',
+    items: [
+      'Recorran los pasillos principales en planta baja, evitando ramales con desnivel.',
+      'Alternen con descansos a la sombra entre pasillos.',
+      'Usen los bancos y áreas de espera del primer cuadro.',
+      'Confirmen las condiciones de acceso el mismo día, por ser edificio histórico.'
+    ]
+  }
+] as const;
+
+// Itinerarios genéricos (medio día / día completo).
+export const itineraries = [
+  {
+    type: 'Medio día',
+    title: 'Itinerario de medio día',
+    duration: '2.5 – 3 h',
+    steps: [
+      '10:00 · Mercado de Artesanías El Parián (45–75 min).',
+      'Zócalo y Catedral de Puebla (30 min a pie).',
+      'Comida típica en el Centro Histórico (45 min).',
+      'Regreso o parada de artesanías complementaria.'
+    ]
+  },
+  {
+    type: 'Día completo',
+    title: 'Itinerario de día completo',
+    duration: '5 – 6 h',
+    steps: [
+      '10:00 · Mercado de Artesanías El Parián.',
+      'Casa de los Hermanos Serdán (historia y Revolución).',
+      'San Pedro Museo de Arte.',
+      'Comida en el Centro Histórico.',
+      'Biblioteca Palafoxiana y Casa de Alfeñique.',
+      'Catedral y Zócalo al atardecer.'
+    ]
+  }
+] as const;
+
+// Ciencia ciudadana y responsabilidad del visitante.
+export const visitorResponsibility = [
+  {
+    icon: '◆',
+    title: 'Autenticidad de la artesanía',
+    text: 'Pregunta por material y procedencia; la Talavera con denominación de origen solo sale de talleres certificados. Comparar en varios puestos es parte de la experiencia.'
+  },
+  {
+    icon: '✽',
+    title: 'Respeto al comercio',
+    text: 'Pide permiso antes de fotografiar puestos y personas, y no bloquees pasillos ni accesos al detenerte a mirar.'
+  },
+  {
+    icon: '♺',
+    title: 'Cero residuos',
+    text: 'Lleva bolsa reutilizable y botella de agua; deposita la basura en los contenedores del Centro Histórico.'
+  },
+  {
+    icon: '☀',
+    title: 'Sol y altura',
+    text: 'Puebla está a ~2,135 m; usa gorra y protector solar, incluso en días nublados, y mantente hidratado.'
+  },
+  {
+    icon: '☂',
+    title: 'Lluvia de tarde',
+    text: 'En la temporada de lluvias (jun–oct) lleva paraguas; las mañanas suelen estar despejadas y son ideales para recorrer.'
+  },
+  {
+    icon: '✚',
+    title: 'Seguridad y salud',
+    text: 'Cuida objetos personales en zonas concurridas; hay farmacias y atención cercana en el primer cuadro del Centro.'
   }
 ] as const;

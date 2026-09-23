@@ -1,17 +1,35 @@
 ---
 import Logo from './Logo.astro';
+import { content } from '../data/content';
+import { attraction } from '../data/site';
+import type { Locale } from '../data/content';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const ui = content[locale].ui;
+const prefix = locale === 'es' ? '' : '/en';
+const navItems = [
+  { id: 'historia', label: ui.nav.historia },
+  { id: 'historias', label: ui.nav.historias },
+  { id: 'artesanias', label: ui.nav.artesanias },
+  { id: 'galeria', label: ui.nav.galeria },
+  { id: 'servicios', label: ui.nav.servicios },
+  { id: 'faq', label: ui.nav.faq }
+];
 ---
 <header class="site-header">
   <div class="wrap header-inner">
     <Logo />
     <nav aria-label="Navegación principal">
-      <a href="/#historia">Historia</a>
-      <a href="/#historias">Historias</a>
-      <a href="/#artesanias">Artesanías</a>
-      <a href="/#galeria">Galería</a>
-      <a href="/#servicios">Servicios</a>
-      <a href="/#faq">FAQ</a>
+      {navItems.map((n) => <a href={`${prefix}/#${n.id}`}>{n.label}</a>)}
     </nav>
-    <a class="button button-small" href="https://maps.app.goo.gl/N9nQNtMzptexARSx7" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
+    <div class="header-right">
+      <a class="button button-small" href={attraction.googleMaps} target="_blank" rel="noopener noreferrer">{ui.ctaLlegar}</a>
+      <div class="lang-switch" aria-label={ui.langSwitch.label}>
+        <a href="/" hreflang="es" lang="es" class={locale === 'es' ? 'active' : ''}>ES</a>
+        <span aria-hidden="true">/</span>
+        <a href="/en/" hreflang="en" lang="en" class={locale === 'en' ? 'active' : ''}>EN</a>
+      </div>
+    </div>
   </div>
 </header>

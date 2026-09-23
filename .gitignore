@@ -1,5 +1,26 @@
+# Dependencias
 node_modules/
+.pnpm-store/
+
+# Build / cache de Astro
 dist/
 .astro/
+
+# Cloudflare Workers
 .wrangler/
+.dev.vars
+
+# Variables de entorno locales
+.env
+.env.*
+!.env.example
+
+# Logs y artefactos de validación
+*.log
+VALIDATION.log
+
+# SO / editores
 .DS_Store
+Thumbs.db
+.idea/
+.vscode/

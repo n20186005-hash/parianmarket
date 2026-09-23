@@ -55,3 +55,65 @@
 .gallery-credit a{color:var(--blue);font-weight:700;text-decoration:none}
 .gallery-credit a:hover{text-decoration:underline}
 @media(max-width:900px){.gallery-grid{grid-template-columns:1fr}}
+
+/* ===== Clima (módulo de pronóstico) ===== */
+.section-weather{background:var(--paper)}
+.weather-card{margin-top:34px;background:var(--white);border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:var(--shadow)}
+.weather-now{display:flex;flex-wrap:wrap;gap:30px;align-items:center;justify-content:space-between}
+.wn-main{display:flex;align-items:center;gap:18px}
+.wn-ico{font-size:64px;line-height:1}
+.wn-temp{font-family:Georgia,serif;font-size:56px;color:var(--blue2);margin-right:10px}
+.wn-desc{display:inline-block;color:var(--brick);font-weight:800;font-size:18px;vertical-align:middle}
+.wn-meta{display:flex;gap:26px;margin:0}
+.wn-meta div{display:flex;flex-direction:column}
+.wn-meta dt{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:#8a7967}
+.wn-meta dd{margin:0;font-weight:800;color:var(--blue2);font-size:18px}
+.w-alert{margin-top:22px;background:#fdecec;border-left:5px solid var(--brick);padding:14px 18px;border-radius:12px;font-size:14px}
+.w-alert strong{color:var(--brick);margin-right:8px}
+.w-alert ul{margin:8px 0 0;padding-left:20px}
+.w-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:26px}
+.wday{display:flex;flex-direction:column;align-items:center;gap:6px;background:#f6ecda;border-radius:14px;padding:14px 8px;text-align:center}
+.wd-name{font-weight:800;color:var(--blue2)}
+.wd-ico{font-size:30px}
+.wd-lab{font-size:11px;color:#655647;min-height:28px;line-height:1.3}
+.wd-temp{font-weight:800;color:var(--ink)}
+.wd-pop{font-size:11px;color:var(--brick);font-weight:700}
+.w-advice{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.w-advice h3{font-size:18px;color:var(--blue2);margin:0 0 6px}
+.w-advice li{font-size:13.5px;color:#655647;margin:5px 0}
+.w-note{font-size:12px;color:#8a7967;margin-top:18px}
+.weather-skeleton,.weather-fallback{padding:30px;text-align:center;color:#8a7967}
+
+/* ===== Estrategia estacional ===== */
+.strategy-table{width:100%;border-collapse:collapse;margin-top:34px;background:var(--white);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(74,46,23,.06)}
+.strategy-table th,.strategy-table td{border-bottom:1px solid var(--line);padding:18px 20px;text-align:left;vertical-align:top;font-size:14.5px}
+.strategy-table th{background:var(--blue);color:white;text-transform:uppercase;letter-spacing:.1em;font-size:12px}
+.strategy-table td:first-child{font-weight:800;color:var(--blue2);width:150px;white-space:nowrap}
+.strategy-table tr:last-child td{border-bottom:none}
+.climate-note{font-size:13px;color:#756553;margin-top:16px}
+
+/* ===== Rutas por público e itinerarios ===== */
+.route-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+.route-card{background:var(--white);border-top:6px solid var(--brick);padding:28px;border-radius:18px;box-shadow:0 8px 24px rgba(74,46,23,.05)}
+.route-card h3{font-size:23px;color:var(--blue2);margin:10px 0 8px}
+.route-card p{font-size:14px;color:#655647;margin:0 0 12px}
+.route-card ul{margin:0;padding-left:20px}
+.route-card li{font-size:13.5px;color:#66584a;margin:6px 0}
+.route-tag{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--brick);font-weight:900;background:#fff1df;border:1px solid rgba(169,67,41,.4);padding:4px 10px;border-radius:999px}
+.itin-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:36px}
+.itin-card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:0 10px 30px rgba(74,46,23,.06)}
+.itin-card .itin-type{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--brick);font-weight:900}
+.itin-card h3{font-size:26px;margin:8px 0 4px;color:var(--blue2)}
+.itin-card .itin-dur{font-size:13px;color:#756553;margin-bottom:16px}
+.itin-card ol{margin:0;padding-left:20px}
+.itin-card li{font-size:14.5px;color:#655647;margin:9px 0}
+
+@media(max-width:900px){
+  .w-grid{grid-template-columns:repeat(3,1fr)}
+  .w-advice3,.route-grid,.itin-grid{grid-template-columns:1fr}
+  .strategy-table td:first-child{white-space:normal}
+}
+@media(max-width:620px){
+  .w-grid{grid-template-columns:repeat(2,1fr)}
+  .wn-temp{font-size:44px}
+}

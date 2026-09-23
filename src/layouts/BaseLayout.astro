@@ -3,18 +3,26 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import JsonLd from '../components/JsonLd.astro';
+import { SITE_NAME } from '../data/site';
+import { content } from '../data/content';
+import type { Locale } from '../data/content';
 
 interface Props {
+  locale: Locale;
   title: string;
   description: string;
   schema?: Record<string, unknown> | Record<string, unknown>[];
   noindex?: boolean;
 }
-const { title, description, schema, noindex = false } = Astro.props;
+const { locale, title, description, schema, noindex = false } = Astro.props;
+const copy = content[locale];
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const origin = Astro.site ? Astro.site.origin : undefined;
+const esUrl = origin ? `${origin}/` : undefined;
+const enUrl = origin ? `${origin}/en/` : undefined;
 ---
 <!doctype html>
-<html lang="es-MX">
+<html lang={copy.htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,13 +35,18 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
     <meta name="ICBM" content="19.04318, -98.19586" />
     {noindex && <meta name="robots" content="noindex,follow" />}
     {canonical && <link rel="canonical" href={canonical} />}
+    {esUrl && <link rel="alternate" hreflang="es" href={esUrl} />}
+    {enUrl && <link rel="alternate" hreflang="en" href={enUrl} />}
+    {esUrl && <link rel="alternate" hreflang="x-default" href={esUrl} />}
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="es_MX" />
+    <meta property="og:locale" content={copy.ogLocale} />
+    <meta property="og:locale:alternate" content={locale === 'es' ? 'en_US' : 'es_MX'} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:image" content={Astro.site ? new URL('/images/og-el-parian.jpg', Astro.site).href : '/images/og-el-parian.jpg'} />
-    <meta property="og:image:alt" content="Mercado de Artesanías El Parián en Puebla" />
+    <meta property="og:image:alt" content={copy.breadcrumbHome === 'Inicio' ? 'Mercado de Artesanías El Parián en Puebla' : 'Mercado de Artesanías El Parián in Puebla'} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -46,10 +59,10 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
     {schema && <JsonLd data={schema} />}
   </head>
   <body>
-    <a class="skip-link" href="#contenido">Saltar al contenido</a>
-    <Header />
+    <a class="skip-link" href="#contenido">{(locale === 'es' ? 'Saltar al contenido' : 'Skip to content')}</a>
+    <Header locale={locale} />
     <main id="contenido"><slot /></main>
-    <Footer />
+    <Footer locale={locale} />
     <script is:inline>
       (() => {
         const GA_ID = 'G-HXM22WWPKP';

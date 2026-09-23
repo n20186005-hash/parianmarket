@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { legal } from '../data/legal';
+import type { Locale } from '../data/content';
+import type { LegalPage } from '../data/legal';
+
+interface Props { locale: Locale; page: LegalPage; }
+const { locale, page } = Astro.props;
+const data = legal[locale];
+const isCookies = page === 'cookies';
+const cookies = data.cookies;
+const other = (data as any)[page];
+
+const switchHtml = (card: any) => {
+  if (card.state === 'locked-on') return `<label class="switch"><input type="checkbox" checked disabled /><span></span><strong>${card.label}</strong></label>`;
+  if (card.state === 'analytics') return `<label class="switch"><input id="analytics" type="checkbox" /><span></span><strong>${card.label}</strong></label>`;
+  if (card.state === 'prefs') return `<label class="switch"><input id="preferences" type="checkbox" /><span></span><strong>${card.label}</strong></label>`;
+  return `<label class="switch"><input type="checkbox" disabled /><span></span><strong>${card.label}</strong></label>`;
+};
+---
+<BaseLayout locale={locale} title={other.title} description={other.description}>
+  <article class="legal wrap cookie-page">
+    <p class="eyebrow">{other.eyebrow}</p>
+    <h1>{other.h1}</h1>
+    <p class="updated">{other.updated}</p>
+
+    {isCookies && (
+      <>
+        <p>{cookies.intro}</p>
+        {cookies.cards.map((card) => (
+          <div class="cookie-card">
+            <div><h2>{card.title}</h2><p>{card.text}</p></div>
+            <Fragment set:html={switchHtml(card)} />
+          </div>
+        ))}
+        <div class="cookie-actions">
+          <button class="button" id="savePrefs" type="button">{cookies.save}</button>
+          <button class="button button-ghost" id="rejectPrefs" type="button">{cookies.reject}</button>
+        </div>
+        <p id="cookieStatus" class="cookie-status" role="status" aria-live="polite"></p>
+        <h2>{cookies.consentTitle}</h2>
+        <p set:html={cookies.consentText} />
+      </>
+    )}
+
+    {!isCookies && (
+      <>
+        {other.blocks.map((b: any) => (<><h2>{b.h2}</h2><p set:html={b.html} /></>))}
+        {other.footerLink && <p><a class="text-link" href={other.footerLink.href}>{other.footerLink.text}</a></p>}
+      </>
+    )}
+  </article>
+
+  {isCookies && (
+    <script is:inline>
+      (() => {
+        const KEY = 'elparian-cookie-preferences';
+        const analytics = document.querySelector('#analytics');
+        const preferences = document.querySelector('#preferences');
+        const status = document.querySelector('#cookieStatus');
+        const read = () => { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (_) { return {}; } };
+        const existing = read();
+        if (analytics) analytics.checked = existing.analytics === true;
+        if (preferences) preferences.checked = existing.preferences === true;
+        const save = (value) => {
+          localStorage.setItem(KEY, JSON.stringify(value));
+          window.dispatchEvent(new CustomEvent('elparian:consent', { detail: value }));
+          if (status) status.textContent = (document.documentElement.lang || 'es') === 'en'
+            ? 'Preferences saved in this browser.'
+            : 'Preferencias guardadas en este navegador.';
+        };
+        const saveBtn = document.querySelector('#savePrefs');
+        const rejectBtn = document.querySelector('#rejectPrefs');
+        if (saveBtn) saveBtn.addEventListener('click', () => save({ analytics: !!(analytics && analytics.checked), preferences: !!(preferences && preferences.checked), marketing: false }));
+        if (rejectBtn) rejectBtn.addEventListener('click', () => {
+          if (analytics) analytics.checked = false;
+          if (preferences) preferences.checked = false;
+          save({ analytics: false, preferences: false, marketing: false });
+        });
+      })();
+    </script>
+  )}
+</BaseLayout>

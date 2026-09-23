@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomePage from '../../components/HomePage.astro';
+import { content } from '../../data/content';
+import { buildSchema } from '../../lib/schema';
+
+const locale = 'en';
+const copy = content[locale];
+const schema = buildSchema(locale, Astro.site);
+---
+<BaseLayout locale={locale} title={copy.tdk.title} description={copy.tdk.description} schema={schema}>
+  <HomePage locale={locale} />
+</BaseLayout>
