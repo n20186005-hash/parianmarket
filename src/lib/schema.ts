@@ -8,15 +8,15 @@ import type { Locale } from '../data/content';
 export function buildSchema(locale: Locale, site?: URL) {
   const data = locale === 'es' ? es : en;
   const copy = content[locale];
-  const pageUrl = site ? new URL('/', site).href : undefined;
+  const pageUrl = site ? new URL(locale === 'es' ? '/' : '/en/', site).href : undefined;
   const entityId = site ? new URL(locale === 'es' ? '/#mercado-el-parian' : '/en/#mercado-el-parian', site).href : undefined;
-  const ogImage = site ? new URL('/images/og-el-parian.jpg', site).href : '/images/og-el-parian.jpg';
+  const ogImage = site ? new URL('/images/parian-concept.svg', site).href : '/images/parian-concept.svg';
 
   return {
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': ['TouristAttraction', 'LocalBusiness'],
+        '@type': 'TouristAttraction',
         ...(entityId ? { '@id': entityId } : {}),
         name: attraction.name,
         alternateName: [...attraction.alternateName, 'Puebla ' + attraction.name, 'El Parián de Puebla'],
@@ -43,23 +43,7 @@ export function buildSchema(locale: Locale, site?: URL) {
         },
         image: [ogImage],
         hasMap: attraction.googleMaps,
-        isAccessibleForFree: true,
         touristType: ['Mercado tradicional', 'Mercado de artesanías', 'Atractivo del Centro Histórico'],
-        openingHoursSpecification: [
-          {
-            '@type': 'OpeningHoursSpecification',
-            dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-            opens: '10:00',
-            closes: '20:00'
-          }
-        ],
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: attraction.rating,
-          reviewCount: attraction.reviewCount,
-          bestRating: 5,
-          worstRating: 1
-        },
         subjectOf: [
           { '@type': 'WebPage', name: 'Turismo del Municipio de Puebla', url: 'https://visita.pueblacapital.gob.mx/' },
           { '@type': 'WebPage', name: 'Secretaría de Desarrollo Turístico de Puebla', url: 'https://sectur.puebla.gob.mx/' }

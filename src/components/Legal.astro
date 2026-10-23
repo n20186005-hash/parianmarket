@@ -14,7 +14,7 @@ const other = (data as any)[page];
 const switchHtml = (card: any) => {
   if (card.state === 'locked-on') return `<label class="switch"><input type="checkbox" checked disabled /><span></span><strong>${card.label}</strong></label>`;
   if (card.state === 'analytics') return `<label class="switch"><input id="analytics" type="checkbox" /><span></span><strong>${card.label}</strong></label>`;
-  if (card.state === 'prefs') return `<label class="switch"><input id="preferences" type="checkbox" /><span></span><strong>${card.label}</strong></label>`;
+  if (card.state === 'prefs') return `<label class="switch"><input id="preferences" type="checkbox" disabled /><span></span><strong>${card.label}</strong></label>`;
   return `<label class="switch"><input type="checkbox" disabled /><span></span><strong>${card.label}</strong></label>`;
 };
 ---
@@ -54,29 +54,13 @@ const switchHtml = (card: any) => {
   {isCookies && (
     <script is:inline>
       (() => {
-        const KEY = 'elparian-cookie-preferences';
-        const analytics = document.querySelector('#analytics');
-        const preferences = document.querySelector('#preferences');
-        const status = document.querySelector('#cookieStatus');
-        const read = () => { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (_) { return {}; } };
-        const existing = read();
-        if (analytics) analytics.checked = existing.analytics === true;
-        if (preferences) preferences.checked = existing.preferences === true;
-        const save = (value) => {
-          localStorage.setItem(KEY, JSON.stringify(value));
-          window.dispatchEvent(new CustomEvent('elparian:consent', { detail: value }));
-          if (status) status.textContent = (document.documentElement.lang || 'es') === 'en'
-            ? 'Preferences saved in this browser.'
-            : 'Preferencias guardadas en este navegador.';
-        };
-        const saveBtn = document.querySelector('#savePrefs');
-        const rejectBtn = document.querySelector('#rejectPrefs');
-        if (saveBtn) saveBtn.addEventListener('click', () => save({ analytics: !!(analytics && analytics.checked), preferences: !!(preferences && preferences.checked), marketing: false }));
-        if (rejectBtn) rejectBtn.addEventListener('click', () => {
-          if (analytics) analytics.checked = false;
-          if (preferences) preferences.checked = false;
-          save({ analytics: false, preferences: false, marketing: false });
-        });
+        const api=window.elparianAnalytics,box=document.getElementById('analytics'),status=document.getElementById('cookieStatus');
+        if(!api||!box||!status)return;
+        const en=document.documentElement.lang==='en';box.checked=api.effective;
+        const save=allow=>{const result=api.save({analytics:allow});box.checked=result.effective;status.textContent=result.saved?(en?(result.effective?'Saved. Analytics is active on this page.':'Saved. Analytics is off.'):(result.effective?'Guardado. La analítica está activa en esta página.':'Guardado. La analítica está desactivada.')):(en?'Saving could not be confirmed. Analytics is off on this page; a prior permission may remain stored for other visits.':'No se pudo confirmar el guardado. La analítica está desactivada en esta página; un permiso anterior puede seguir guardado para otras visitas.');};
+        document.getElementById('savePrefs')?.addEventListener('click',()=>save(box.checked));
+        document.getElementById('rejectPrefs')?.addEventListener('click',()=>save(false));
+        window.addEventListener('elparian-analytics-change',()=>{box.checked=api.effective;status.textContent='';});
       })();
     </script>
   )}

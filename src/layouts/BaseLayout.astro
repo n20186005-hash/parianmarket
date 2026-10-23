@@ -16,10 +16,12 @@ interface Props {
 }
 const { locale, title, description, schema, noindex = false } = Astro.props;
 const copy = content[locale];
-const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const pagePath = Astro.url.pathname === '/404/' ? '/404' : Astro.url.pathname;
+const canonical = Astro.site ? new URL(pagePath, Astro.site).href : undefined;
 const origin = Astro.site ? Astro.site.origin : undefined;
-const esUrl = origin ? `${origin}/` : undefined;
-const enUrl = origin ? `${origin}/en/` : undefined;
+const topic = Astro.url.pathname.replace(/^\/en(?=\/)/, '').replace(/^\/404\/$/, '/404');
+const esUrl = origin ? `${origin}${topic}` : undefined;
+const enUrl = origin ? `${origin}/en${topic}${topic === '/404' ? '/' : ''}` : undefined;
 ---
 <!doctype html>
 <html lang={copy.htmlLang}>
@@ -31,8 +33,8 @@ const enUrl = origin ? `${origin}/en/` : undefined;
     <meta name="theme-color" content="#164f9c" />
     <meta name="geo.region" content="MX-PUE" />
     <meta name="geo.placename" content="Heroica Puebla de Zaragoza" />
-    <meta name="geo.position" content="19.04318;-98.19586" />
-    <meta name="ICBM" content="19.04318, -98.19586" />
+    <meta name="geo.position" content="19.0431794;-98.1932827" />
+    <meta name="ICBM" content="19.0431794, -98.1932827" />
     {noindex && <meta name="robots" content="noindex,follow" />}
     {canonical && <link rel="canonical" href={canonical} />}
     {esUrl && <link rel="alternate" hreflang="es" href={esUrl} />}
@@ -45,8 +47,8 @@ const enUrl = origin ? `${origin}/en/` : undefined;
     <meta property="og:description" content={description} />
     {canonical && <meta property="og:url" content={canonical} />}
     <meta property="og:site_name" content={SITE_NAME} />
-    <meta property="og:image" content={Astro.site ? new URL('/images/og-el-parian.jpg', Astro.site).href : '/images/og-el-parian.jpg'} />
-    <meta property="og:image:alt" content={copy.breadcrumbHome === 'Inicio' ? 'Mercado de Artesanías El Parián en Puebla' : 'Mercado de Artesanías El Parián in Puebla'} />
+    <meta property="og:image" content={Astro.site ? new URL('/images/parian-concept.svg', Astro.site).href : '/images/parian-concept.svg'} />
+    <meta property="og:image:alt" content={copy.breadcrumbHome === 'Inicio' ? 'Ilustración conceptual de artesanías; no es fotografía del mercado' : 'Conceptual crafts illustration; not a market photograph'} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,38 +59,13 @@ const enUrl = origin ? `${origin}/en/` : undefined;
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
     {schema && <JsonLd data={schema} />}
+    <script is:inline src="/analytics.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#contenido">{(locale === 'es' ? 'Saltar al contenido' : 'Skip to content')}</a>
     <Header locale={locale} />
     <main id="contenido"><slot /></main>
     <Footer locale={locale} />
-    <script is:inline>
-      (() => {
-        const GA_ID = 'G-HXM22WWPKP';
-        const KEY = 'elparian-cookie-preferences';
-        let loaded = false;
-        const loadAnalytics = () => {
-          if (loaded) return;
-          loaded = true;
-          window.dataLayer = window.dataLayer || [];
-          window.gtag = function(){ window.dataLayer.push(arguments); };
-          window.gtag('js', new Date());
-          window.gtag('config', GA_ID, { anonymize_ip: true });
-          const s = document.createElement('script');
-          s.async = true;
-          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
-          document.head.appendChild(s);
-        };
-        try {
-          const prefs = JSON.parse(localStorage.getItem(KEY) || '{}');
-          if (prefs.analytics === true) loadAnalytics();
-        } catch (_) {}
-        window.addEventListener('elparian:consent', (event) => {
-          if (event.detail && event.detail.analytics === true) loadAnalytics();
-        });
-      })();
-    </script>
     <script is:inline>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {

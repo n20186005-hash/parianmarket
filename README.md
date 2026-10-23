@@ -1,52 +1,21 @@
-# Guía de El Parián Puebla
+# El Parián Puebla visitor guide
 
-Sitio estático en español de México para el Mercado de Artesanías El Parián, Puebla.
+Independent Spanish and English static Astro guide at https://parianmarket.com. Existing eight home/legal URLs are retained; two localized error pages are excluded from the sitemap.
 
-## Tecnología
+## Local validation
 
-- Astro 7.2.10
-- Tailwind CSS 4.3.3 con `@tailwindcss/vite` 4.3.3
-- TypeScript 6.0.3 (rama compatible con `@astrojs/check` 0.9.10)
-- pnpm 11.24.0
-- Node.js 24.20.0 LTS
-- Wrangler 4.127.1, Cloudflare Workers Static Assets
+Use the pinned package manager and lockfile: `pnpm install --frozen-lockfile`, then `npm run check`, `npm run build`, `npm run qa`, and `node --test tests/runtime.test.mjs`.
 
-## Dominio
+## Cloudflare
 
-El sitio está configurado para **https://parianmarket.com** en `astro.config.ts` (única fuente de `SITE_URL`). `Astro.site` alimenta canonical, Open Graph, JSON-LD, robots y `@astrojs/sitemap` (`sitemap-index.xml`).
+`wrangler.jsonc` names project `parianmarket`, serves `dist` through ASSETS and runs `worker.js` before assets. The configured build/deploy path is `npm run build` followed by `npx wrangler deploy`. Validate packaging with `npx wrangler deploy --dry-run`; this does not establish live production acceptance.
 
-## PWA
+## Existing services
 
-- `public/manifest.webmanifest` — nombre, tema y favicon para instalación.
-- `public/sw.js` — Service Worker: precarga del shell, red-primero para navegación (respaldo offline) y caché-primero para estáticos.
-- Registro del SW en `src/layouts/BaseLayout.astro`; cabeceras de cache en `public/_headers`.
+The browser requests Open-Meteo for the mapped area. Valid forecasts may be cached locally for30minutes; storage failure does not prevent displaying a fresh response. The service worker uses network-first navigation with a per-URL offline fallback.
 
-## Desarrollo y validación
+Google Analytics is controlled through the existing cookie pages. A successful permission can load it immediately. Withdrawal disables this page before storage writes; failed persistence is reported honestly. The unused interface-preferences category is disabled. Hosting performance scripts are separate from this GA choice.
 
-```bash
-corepack enable
-pnpm install --frozen-lockfile
-pnpm check
-pnpm build
-pnpm qa
-```
+## Images and sources
 
-## Cloudflare Workers
-
-```bash
-pnpm deploy
-```
-
-`wrangler.jsonc` sirve `./dist` mediante Workers Static Assets.
-
-## Analítica y consentimiento
-
-GA4 `G-HXM22WWPKP` está preparado, pero el script sólo se inyecta si el usuario activa Analíticas en `/cookies/`. No hay banner/modal; las preferencias se gestionan en la página independiente.
-
-## Fotografías
-
-Consulta `PHOTO-SOURCES.md`. La sesión de construcción actual no pudo descargar los binarios por bloqueo de red del entorno; no se usaron imágenes generadas como sustituto de fotografías reales.
-
-## Estado de verificación de esta entrega
-
-El código recibió QA estático local, pero **no debe presentarse como validado con instalación limpia** hasta que un entorno con acceso a `registry.npmjs.org` ejecute la secuencia completa. Este paquete no incluye un `pnpm-lock.yaml` inventado o incompleto.
+See `PHOTO-SOURCES.md` for the three original CC0 conceptual SVGs, visibly labelled as illustrations. Unverified baseline JPGs are omitted. `SOURCES.md` lists visitor references and the distinction between municipal general hours and the third-party stall-linked Maps snapshot.

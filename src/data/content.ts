@@ -5,9 +5,9 @@ export const content = {
     htmlLang: 'es-MX',
     ogLocale: 'es_MX',
     tdk: {
-      title: 'Mercado de Artesanías El Parián (Puebla) | Guía de visita y ubicación',
+      title: 'El Parián Puebla: artesanías, horario y cómo llegar',
       description:
-        'Guía independiente del Mercado de Artesanías El Parián en el Centro Histórico de Puebla, México (2RV4+7M): horario, artesanías, cómo llegar, estacionamiento, costos, comida cercana, servicios y consejos de visita.'
+        'Guía independiente del Mercado de Artesanías El Parián en el Centro Histórico de Puebla, México horario, artesanías, cómo llegar, estacionamiento, costos, comida cercana, servicios y consejos de visita.'
     },
     schemaDescription:
       'Guía independiente del Mercado de Artesanías El Parián en el Centro Histórico de Puebla: ubicación, horario, artesanías, servicios, historia y consejos de visita.',
@@ -22,7 +22,7 @@ export const content = {
       trust: [
         { big: '10:00–20:00', small: 'Horario publicado por turismo municipal' },
         { big: '1801', small: 'Referencia histórica del mercado' },
-        { big: '4.5 / 5', small: '28,579 reseñas en la ficha facilitada' }
+        { big: '4.5 / 5', small: 'Google Maps · 28,659 reseñas · 23 oct 2026' }
       ],
       panel: {
         badge: 'PUEBLA',
@@ -46,16 +46,15 @@ export const content = {
       eyebrow: 'Una plaza hecha mercado',
       h2: 'El Parián y la memoria comercial de Puebla',
       paragraphs: [
-        'La historia turística de Puebla relaciona El Parián con la antigua Plazuela de San Roque y sitúa su conformación como mercado en 1801. El conjunto conserva una imagen muy reconocible: fachadas de ladrillo, detalles de azulejo y pequeños locales alineados alrededor del corredor.',
-        'El origen del edificio se remonta a una madrugada de enero de 1796: un incendio de causa no documentada destruyó 23 estancos de madera del Portal de las Flores, frente a la Catedral. El intendente Manuel de Flón encargó entonces al arquitecto Antonio Santamaría Inchárragui el diseño de los nuevos locales, que se levantaron en la antigua Plazuela de San Roque y dieron forma al Parián que hoy se recorre.',
-        'Durante más de siglo y medio el espacio funcionó como mercado general, punto de llegada y reventa de mercancías. En 1961 se convirtió formalmente en el mercado típico de artesanías: unos 112 locales que hoy concentran cerámica, textiles, ónix, vidrio, barro y dulces procedentes de distintas regiones del estado.',
-        'Hoy funciona principalmente como mercado de artesanías. Su valor para el visitante no está sólo en comprar un recuerdo, sino en reconocer materiales y técnicas vinculadas con la identidad poblana, dentro de un Centro Histórico inscrito en la Lista del Patrimonio Mundial de la UNESCO desde 1987.'
+        'La Asociación Nacional de Ciudades Mexicanas del Patrimonio Mundial relaciona El Parián con la antigua plazuela de San Roque y con 1801. Su descripción distingue la etapa de mercado de artesanías desde 1961.',
+        'Esa fuente publica una descripción de 112 locales y una oferta de cerámica, textiles y otros trabajos artesanales de Puebla. La cifra no es un recuento actual de puestos abiertos; consulta con cada vendedor su disponibilidad.',
+        'Para conocer la historia publicada y el contexto del conjunto, consulta la fuente enlazada. Esta guía independiente ofrece sugerencias de visita y no representa a la administración del mercado.'
       ],
       sourceBoxHtml:
-        'Entidad verificada: esta guía usa el nombre completo, ubicación, geodatos y referencias cruzadas de turismo municipal y estatal para evitar confundir El Parián de Puebla con mercados homónimos de otras ciudades.'
+        'Fuente histórica: <a href="https://www.ciudadespatrimonio.mx/el-parian/" target="_blank" rel="noopener noreferrer">Asociación Nacional de Ciudades Mexicanas del Patrimonio Mundial</a>. Su descripción publicada no garantiza el estado actual de cada puesto.'
     },
-    timeline: { eyebrow: 'De la plaza al mercado', h2: 'Una historia en cinco momentos' },
-    stories: { eyebrow: 'Historias y leyendas', h2: 'Lo que pocas veces se cuenta sobre El Parián' },
+    timeline: { eyebrow: 'De la plaza al mercado', h2: 'Dos referencias históricas publicadas' },
+    stories: { eyebrow: 'Contexto publicado', h2: 'El mercado en la descripción de Ciudades Patrimonio' },
     artesanias: {
       eyebrow: 'Qué mirar con atención',
       h2: 'Artesanías que cuentan Puebla',
@@ -127,18 +126,12 @@ export const content = {
       lead: 'Ideas de encuadre para retratar el mercado con respeto por su actividad comercial.'
     },
     galeria: {
-      eyebrow: 'Fotografía documental',
+      eyebrow: 'Ilustraciones conceptuales',
       h2: 'El Parián en imágenes',
-      lead: 'Fotografías reales del mercado y su cerámica, con créditos y licencia de Wikimedia Commons.',
+      lead: 'Gráficos originales sobre arcos, cerámica y textiles. Son ilustraciones conceptuales, no fotografías ni representaciones exactas del mercado actual.',
       creditLabel: 'Fotografía',
-      seeLabel: 'Ver en Wikimedia Commons',
-      items: [
-        { alt: 'Mercado de Artesanías El Parián — vista principal en Puebla, México', cap: 'El corredor artesanal del mercado', author: 'Luis Alvaz · CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Mercado_El_Pari%C3%A1n,_Puebla_06.jpg' },
-        { alt: 'Arcos y fachadas de ladrillo del Mercado El Parián, Puebla', cap: 'Arcos, ladrillo y azulejo', author: 'Luis Alvaz · CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Mercado_El_Pari%C3%A1n,_Puebla_04.jpg' },
-        { alt: 'Puestos de artesanías del Mercado El Parián, Puebla', cap: 'Puestos y mercancía', author: 'Luis Alvaz · CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Mercado_El_Pari%C3%A1n,_Puebla_08.jpg' },
-        { alt: 'Detalles de las piezas artesanales del Mercado El Parián, Puebla', cap: 'Detalles de la oferta poblana', author: 'Luis Alvaz · CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Mercado_El_Pari%C3%A1n,_Puebla_10.jpg' },
-        { alt: 'Cerámica de Puebla, tradición artesanal del estado', cap: 'Cerámica poblana', author: 'Hector Garcia · CC BY-SA 2.0', href: 'https://commons.wikimedia.org/wiki/File:Ceramica_de_Puebla.jpg' }
-      ]
+      seeLabel: 'Ver créditos de esta guía',
+      items: []
     },
     etiqueta: {
       eyebrow: 'Etiqueta del visitante',
@@ -173,13 +166,13 @@ export const content = {
       eyebrow: 'Fuentes de referencia',
       h2: 'Información contrastada, no afiliación oficial',
       links: [
-        { href: 'https://visita.pueblacapital.gob.mx/atractivos/los-imperdibles-de-puebla/itemlist/category/31-mercados-de-artesanias', strong: 'Turismo del Municipio de Puebla', span: 'Dirección y horario del mercado' },
+        { href: 'https://visita.pueblacapital.gob.mx/directorio/itemlist/category/31-mercados-de-artesanias', strong: 'Turismo del Municipio de Puebla', span: 'Dirección y horario del mercado' },
         { href: 'https://sectur.puebla.gob.mx/', strong: 'Secretaría de Desarrollo Turístico de Puebla', span: 'Contexto turístico estatal' },
-        { href: 'https://visitmexico.com/', strong: 'VisitMexico', span: 'Referencia turística nacional' },
-        { href: 'https://commons.wikimedia.org/wiki/Category:Market_of_El_Pari%C3%A1n', strong: 'Wikimedia Commons', span: 'Fotografía documental y licencias' }
+        { href: 'https://www.ciudadespatrimonio.mx/el-parian/', strong: 'Ciudades Patrimonio de México', span: 'Historia, artesanías y horario general' },
+        { href: '/CREDITS.txt', strong: 'Créditos de esta guía', span: 'Ilustraciones originales conceptuales · CC0' }
       ],
       noteHtml:
-        '<p><strong>Nota editorial:</strong> esta guía independiente y sin fines de lucro contrasta la información con fuentes oficiales de turismo municipal, estatal y nacional, además de publicaciones históricas sobre el incendio de 1796, el origen del nombre “parián” y la conversión del inmueble en mercado de artesanías en 1961. Última revisión de contenido: septiembre de 2026.</p><p>Para información oficial y actualizada, consulta el <a href="https://sectur.puebla.gob.mx/" target="_blank" rel="noopener noreferrer">Portal de Turismo del Estado de Puebla</a> o el <a href="https://www.gob.mx/sectur" target="_blank" rel="noopener noreferrer">Portal de Turismo del Gobierno de México</a>.</p>'
+        '<p><strong>Nota editorial:</strong> guía independiente. Los horarios generales se contrastan con el directorio municipal y la descripción histórica con Ciudades Patrimonio; la ficha de Maps es una observación de terceros fechada. Los horarios y la oferta de cada vendedor pueden variar. Revisión: 23 de octubre de 2026.</p>'
     },
     ui: {
       nav: { historia: 'Historia', historias: 'Historias', artesanias: 'Artesanías', galeria: 'Galería', servicios: 'Servicios', faq: 'FAQ' },
@@ -192,9 +185,9 @@ export const content = {
       footerSources: 'Fuentes públicas',
       footerNotes: [
         'Este sitio es un proyecto independiente y sin fines de lucro de información para visitantes; no tiene relación de dependencia con el H. Ayuntamiento de Puebla, el Gobierno del Estado de Puebla, la Secretaría de Turismo del Gobierno de México ni con la administración del mercado.',
-        'La información histórica y turística se contrasta con publicaciones del H. Ayuntamiento de Puebla y su Secretaría de Economía y Turismo, la Secretaría de Desarrollo Turístico del Gobierno del Estado de Puebla y la Secretaría de Turismo del Gobierno de México. No contiene recomendaciones comerciales pagadas.',
-        'Derechos de imagen: la titularidad y los derechos de las fotografías corresponden a sus autores originales y se respetan conforme a las licencias indicadas en los créditos.',
-        '© 2026 Guía de El Parián Puebla. Todos los derechos reservados.'
+        'Las fuentes específicas se enlazan en el contenido. Los planes de visita son sugerencias editoriales; confirma con cada proveedor sus horarios y condiciones. No contiene recomendaciones comerciales pagadas.',
+        'Las tres ilustraciones originales se identifican como conceptuales y se ofrecen bajo CC0. Créditos y archivos: /CREDITS.txt.',
+        '© 2026 Guía de El Parián Puebla. Ilustraciones originales: CC0; otros contenidos según sus derechos aplicables.'
       ],
       langSwitch: { label: 'Idioma', es: 'Español', en: 'English' }
     }
@@ -205,7 +198,7 @@ export const content = {
     tdk: {
       title: 'Mercado de Artesanías El Parián (Puebla) | Visitor Guide & Location',
       description:
-        'Plan your visit to the Mercado de Artesanías El Parián in the Historic Center of Puebla, Mexico (2RV4+7M): opening hours, crafts, how to get there, parking, cost, nearby food, services and visitor tips.'
+        'Plan your visit to the Mercado de Artesanías El Parián in the Historic Center of Puebla, Mexico opening hours, crafts, how to get there, parking, cost, nearby food, services and visitor tips.'
     },
     schemaDescription:
       'Independent guide to the Mercado de Artesanías El Parián in the Historic Center of Puebla: location, hours, crafts, services, history and visitor tips.',
@@ -220,7 +213,7 @@ export const content = {
       trust: [
         { big: '10:00–20:00', small: 'Hours published by municipal tourism' },
         { big: '1801', small: 'Historical reference of the market' },
-        { big: '4.5 / 5', small: '28,579 reviews on the provided sheet' }
+        { big: '4.5 / 5', small: 'Google Maps · 28,659 reviews · 23 Oct 2026' }
       ],
       panel: {
         badge: 'PUEBLA',
@@ -244,16 +237,15 @@ export const content = {
       eyebrow: 'A plaza turned market',
       h2: 'El Parián and the commercial memory of Puebla',
       paragraphs: [
-        'The tourist history of Puebla links El Parián to the old Plazuela de San Roque and places its formation as a market in 1801. The ensemble keeps a very recognizable image: brick facades, tile details and small shops lined along the corridor.',
-        'The origin of the building goes back to a January dawn in 1796: a fire of undocumented cause destroyed 23 wooden stalls of the Portal de las Flores, facing the Cathedral. Intendant Manuel de Flón then commissioned architect Antonio Santamaría Inchárragui to design the new units, built in the old Plazuela de San Roque and giving shape to the Parián walked today.',
-        'For more than a century and a half the space operated as a general market, a point of arrival and resale of goods. In 1961 it formally became the typical crafts market: about 112 shops that today concentrate ceramics, textiles, onyx, glass, clay and sweets from different regions of the state.',
-        'Today it works mainly as a crafts market. Its value for the visitor is not only in buying a souvenir, but in recognizing materials and techniques linked to Pueblan identity, within a Historic Center inscribed on the UNESCO World Heritage List since 1987.'
+        'The National Association of Mexican World Heritage Cities associates El Parián with the former San Roque square and 1801. Its account distinguishes the crafts-market phase from 1961.',
+        'That source publishes a description of 112 units and an offering of ceramics, textiles and other Puebla crafts. The figure is not a current count of open stalls; check availability with individual vendors.',
+        'Read the linked source for the published historical account and context. This independent guide offers visitor suggestions and does not represent the market administration.'
       ],
       sourceBoxHtml:
-        'Verified entity: this guide uses the full name, location, geodata and cross-references from municipal and state tourism to avoid confusing El Parián de Puebla with markets of the same name in other cities.'
+        'Historical source: <a href="https://www.ciudadespatrimonio.mx/el-parian/" target="_blank" rel="noopener noreferrer">National Association of Mexican World Heritage Cities</a>. Its published description does not guarantee current conditions at every stall.'
     },
-    timeline: { eyebrow: 'From the plaza to the market', h2: 'A history in five moments' },
-    stories: { eyebrow: 'Stories and legends', h2: 'What is rarely told about El Parián' },
+    timeline: { eyebrow: 'From the plaza to the market', h2: 'Two published historical references' },
+    stories: { eyebrow: 'Published context', h2: 'The market in the World Heritage Cities account' },
     artesanias: {
       eyebrow: 'What to look at closely',
       h2: 'Crafts that tell Puebla',
@@ -325,18 +317,12 @@ export const content = {
       lead: 'Framing ideas to portray the market with respect for its commercial activity.'
     },
     galeria: {
-      eyebrow: 'Documentary photography',
+      eyebrow: 'Conceptual illustrations',
       h2: 'El Parián in images',
-      lead: 'Real photos of the market and its ceramics, with credits and Wikimedia Commons license.',
+      lead: 'Original graphics about arches, ceramics and textiles. These are conceptual illustrations, not photographs or exact depictions of the current market.',
       creditLabel: 'Photograph',
-      seeLabel: 'See on Wikimedia Commons',
-      items: [
-        { alt: 'Mercado de Artesanías El Parián — main view in Puebla, Mexico', cap: 'The artisanal corridor of the market', author: 'Luis Alvaz · CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Mercado_El_Pari%C3%A1n,_Puebla_06.jpg' },
-        { alt: 'Brick arches and facades of Mercado El Parián, Puebla', cap: 'Arches, brick and tile', author: 'Luis Alvaz · CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Mercado_El_Pari%C3%A1n,_Puebla_04.jpg' },
-        { alt: 'Craft stalls of Mercado El Parián, Puebla', cap: 'Stalls and goods', author: 'Luis Alvaz · CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Mercado_El_Pari%C3%A1n,_Puebla_08.jpg' },
-        { alt: 'Details of the craft pieces of Mercado El Parián, Puebla', cap: 'Details of the Pueblan offer', author: 'Luis Alvaz · CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Mercado_El_Pari%C3%A1n,_Puebla_10.jpg' },
-        { alt: 'Ceramics of Puebla, artisanal tradition of the state', cap: 'Pueblan ceramics', author: 'Hector Garcia · CC BY-SA 2.0', href: 'https://commons.wikimedia.org/wiki/File:Ceramica_de_Puebla.jpg' }
-      ]
+      seeLabel: 'See this guide’s credits',
+      items: []
     },
     etiqueta: {
       eyebrow: 'Visitor etiquette',
@@ -371,13 +357,13 @@ export const content = {
       eyebrow: 'Reference sources',
       h2: 'Cross-checked information, not official affiliation',
       links: [
-        { href: 'https://visita.pueblacapital.gob.mx/atractivos/los-imperdibles-de-puebla/itemlist/category/31-mercados-de-artesanias', strong: 'Tourism of the Municipality of Puebla', span: 'Market address and hours' },
+        { href: 'https://visita.pueblacapital.gob.mx/directorio/itemlist/category/31-mercados-de-artesanias', strong: 'Tourism of the Municipality of Puebla', span: 'Market address and hours' },
         { href: 'https://sectur.puebla.gob.mx/', strong: 'Puebla State Tourism Development Secretariat', span: 'State tourism context' },
-        { href: 'https://visitmexico.com/', strong: 'VisitMexico', span: 'National tourism reference' },
-        { href: 'https://commons.wikimedia.org/wiki/Category:Market_of_El_Pari%C3%A1n', strong: 'Wikimedia Commons', span: 'Documentary photography and licenses' }
+        { href: 'https://www.ciudadespatrimonio.mx/el-parian/', strong: 'Ciudades Patrimonio de México', span: 'History, crafts and general hours' },
+        { href: '/CREDITS.txt', strong: 'This guide’s credits', span: 'Original conceptual illustrations · CC0' }
       ],
       noteHtml:
-        '<p><strong>Editorial note:</strong> this independent, non-profit guide contrasts information with official municipal, state and national tourism sources, plus historical publications on the 1796 fire, the origin of the name “parián” and the conversion of the building into a crafts market in 1961. Last content review: September 2026.</p><p>For official and updated information, consult the <a href="https://sectur.puebla.gob.mx/" target="_blank" rel="noopener noreferrer">Puebla State Tourism Portal</a> or the <a href="https://www.gob.mx/sectur" target="_blank" rel="noopener noreferrer">Tourism Portal of the Government of Mexico</a>.</p>'
+        '<p><strong>Editorial note:</strong> independent guide. General hours are checked against the municipal directory and historical context against the World Heritage Cities account; the Maps listing is a dated third-party observation. Individual vendors’ hours and selection may vary. Reviewed: 23 October 2026.</p>'
     },
     ui: {
       nav: { historia: 'History', historias: 'Stories', artesanias: 'Crafts', galeria: 'Gallery', servicios: 'Services', faq: 'FAQ' },
@@ -390,9 +376,9 @@ export const content = {
       footerSources: 'Public sources',
       footerNotes: [
         'This site is an independent, non-profit information project for visitors; it has no dependency relationship with the H. Ayuntamiento de Puebla, the Government of the State of Puebla, the Tourism Secretariat of the Government of Mexico, or the market administration.',
-        'Historical and tourist information is contrasted with publications of the H. Ayuntamiento de Puebla and its Secretariat of Economy and Tourism, the Tourism Development Secretariat of the Government of the State of Puebla, and the Tourism Secretariat of the Government of Mexico. It contains no paid commercial recommendations.',
-        'Image rights: ownership and rights of the photographs correspond to their original authors and are respected according to the licenses indicated in the credits.',
-        '© 2026 Guía de El Parián Puebla. All rights reserved.'
+        'Specific sources are linked in the content. Visit plans are editorial suggestions; confirm hours and conditions with each provider. It contains no paid commercial recommendations.',
+        'Original illustrations are labelled conceptual and offered under CC0.',
+        '© 2026 Guía de El Parián Puebla. Original illustrations: CC0; other content subject to its applicable rights.'
       ],
       langSwitch: { label: 'Language', es: 'Español', en: 'English' }
     }

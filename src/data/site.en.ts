@@ -4,70 +4,13 @@
 export { attraction, authorityLinks, SITE_NAME } from './site';
 
 export const timeline = [
-  {
-    year: '1531',
-    title: 'Founding of the city',
-    text: 'Puebla de los Ángeles is founded, and the area that El Parián occupies today becomes a space of commerce and transit from the city’s earliest centuries.'
-  },
-  {
-    year: '1796',
-    title: 'The fire at the Portal de las Flores',
-    text: 'On January 7, the night after Día de Reyes (Three Kings’ Day), 23 wooden stalls in front of the Cathedral are destroyed by a fire of undocumented cause.'
-  },
-  {
-    year: '1801',
-    title: 'El Parián is born',
-    text: 'At the request of intendant Manuel de Flón, architect Antonio Santamaría Inchárragui designs the commercial units in the old Plazuela de San Roque.'
-  },
-  {
-    year: '1961',
-    title: 'A traditional crafts market',
-    text: 'The space is formally established as the city’s crafts market, concentrating Puebla’s artisanal offer from different regions of the state.'
-  },
-  {
-    year: '1987',
-    title: 'UNESCO World Heritage Site',
-    text: 'The Historic Center of Puebla, of which El Parián is part, is inscribed on the World Heritage List for its urban and architectural value.'
-  }
+ {year:'1801',title:'The former San Roque square',text:'The National Association of Mexican World Heritage Cities associates the former San Roque square and El Parián with 1801.'},
+ {year:'1961',title:'The crafts-market phase',text:'The same historical account places crafts-market use of the former market from 1961. These are historical references, not a guarantee of current conditions at individual stalls.'}
 ] as const;
 
 export const stories = [
-  {
-    kind: 'documentado',
-    tag: 'Documented history',
-    title: 'A night of fire in front of the Cathedral',
-    text: 'On January 7, 1796, the day after Three Kings’ Day, a fire of undocumented cause consumed 23 wooden stalls at the Portal de las Flores, facing the Cathedral’s Sagrario. The commercial plaza was left in ashes and the city had to relocate its merchants.'
-  },
-  {
-    kind: 'documentado',
-    tag: 'Documented history',
-    title: 'The intendant and the architect',
-    text: 'Intendant Manuel de Flón (1786–1811), the first governor with that title in Puebla, commissioned architect Antonio Santamaría Inchárragui to design the new units. The same architect authored the Casa de Alfeñique and the Fuente de San Miguel, leaving his signature on several key pieces of Puebla’s heritage.'
-  },
-  {
-    kind: 'documentado',
-    tag: 'Origin of the name',
-    title: 'A name that crossed the ocean',
-    text: 'The word “parián” is attributed to an origin linked to Asian trade: in Manila, the Parián was the quarter of Chinese merchants or sangleyes. The word is said to have reached New Spain with the transpacific trade of the Manila Galleon.'
-  },
-  {
-    kind: 'tradición',
-    tag: 'Local tradition',
-    title: 'The muleteers and the Plaza del Varadillo',
-    text: 'Another popular explanation links the name to the muleteers who crossed the area bringing goods from Veracruz, Oaxaca and Guerrero. The old plaza was known as Plaza del Varadillo, and its vocation as a passage and barter point preceded the current building.'
-  },
-  {
-    kind: 'documentado',
-    tag: 'Documented history',
-    title: 'From a general market to a crafts showcase',
-    text: 'For more than a century and a half El Parián operated as a general market. In 1961 it formally became the typical crafts market, concentrating the production of different towns of Puebla in a single walk.'
-  },
-  {
-    kind: 'tradición',
-    tag: 'Local tradition',
-    title: 'Talavera with a protected name',
-    text: 'The ceramics sold at El Parián today follow a 16th-century tradition. Only pieces made in certified workshops may use the “Talavera” denomination of origin; when buying, it is worth asking about certification and provenance.'
-  }
+ {kind:'documentado',tag:'Published description',title:'A group of craft stalls',text:'The World Heritage Cities description mentions 112 units. This is a figure published by that source, not a live count of open stalls or a guarantee of availability.'},
+ {kind:'documentado',tag:'Crafts described',title:'Puebla materials and crafts',text:'The source lists ceramics, textiles, leatherwork, wood, palm and glass among the crafts. Selection and opening hours depend on each vendor.'}
 ] as const;
 
 export const services = [
@@ -169,7 +112,7 @@ export const photoSpots = [
 export const faqs = [
   {
     q: 'What are the opening hours of El Parián in Puebla?',
-    a: 'The tourism office of the Municipality of Puebla publishes hours from Monday to Sunday, 10:00 to 20:00. It is worth checking for extraordinary changes on holidays or special events before going.'
+    a: 'Municipal tourism lists 10:00–20:00 daily. Google Maps, checked on 23 October 2026, shows 10:00–21:00 on a listing addressed to stall 111. Individual stalls may differ: check with the vendor, especially for a late visit.'
   },
   {
     q: 'Is there an entrance fee to visit the Mercado de Artesanías El Parián?',
@@ -201,7 +144,7 @@ export const faqs = [
   },
   {
     q: 'Is it accessible for people with reduced mobility?',
-    a: 'The market occupies corridors and aisles in a 19th-century historic building, so there may be steps and narrow aisles. The official information does not publish a specific accessibility plan; it is worth verifying conditions on the day.'
+    a: 'The market occupies corridors and aisles in a 19th-century historic building, so there may be steps and narrow aisles. This guide has not verified a detailed accessible route; confirm conditions with the market before visiting.'
   },
   {
     q: 'Are photographs allowed in the market?',
@@ -328,7 +271,7 @@ export const visitorResponsibility = [
   {
     icon: '◆',
     title: 'Authenticity of the craft',
-    text: 'Ask about material and provenance; Talavera with denomination of origin only comes from certified workshops. Comparing at several stalls is part of the experience.'
+    text: 'Ask about material, maker, origin and documentation for pieces advertised as Talavera. Compare information and prices across vendors.'
   },
   {
     icon: '✽',

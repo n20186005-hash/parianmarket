@@ -7,16 +7,14 @@ export const attraction = {
   country: 'México',
   officialAddress: '6 Norte 205, Centro Histórico, 72000 Heroica Puebla de Zaragoza, Pue., México',
   mapsAddress: 'Mercado de artesanías El Parián local 111, 72000 Heroica Puebla de Zaragoza, Pue., México',
-  plusCode: '2RV4+7M',
-  latitude: 19.04318,
-  longitude: -98.19586,
+  plusCode: '19.0431794, -98.1932827',
+  latitude: 19.0431794,
+  longitude: -98.1932827,
   googleMaps: 'https://maps.app.goo.gl/N9nQNtMzptexARSx7',
   rating: 4.5,
-  reviewCount: 28579,
+  reviewCount: 28659,
   openingHours: '10:00–20:00',
   openingDays: 'Lunes a domingo',
-  founded: '1801',
-  stalls: 112,
   gaId: 'G-HXM22WWPKP',
 } as const;
 
@@ -28,31 +26,8 @@ export const authorityLinks = [
 ];
 
 export const timeline = [
-  {
-    year: '1531',
-    title: 'Fundación de la ciudad',
-    text: 'Puebla de los Ángeles se funda y la zona que hoy ocupa El Parián se consolida como espacio de comercio y tránsito desde los primeros siglos de la ciudad.'
-  },
-  {
-    year: '1796',
-    title: 'El incendio del Portal de las Flores',
-    text: 'El 7 de enero, una noche después del Día de Reyes, 23 estancos de madera frente a la Catedral quedan destruidos por un incendio de causa no documentada.'
-  },
-  {
-    year: '1801',
-    title: 'Nace El Parián',
-    text: 'Por encargo del intendente Manuel de Flón, el arquitecto Antonio Santamaría Inchárragui diseña los locales comerciales en la antigua Plazuela de San Roque.'
-  },
-  {
-    year: '1961',
-    title: 'Mercado típico de artesanías',
-    text: 'El espacio se convierte formalmente en el mercado de artesanías de la ciudad y concentra la oferta artesanal de distintas regiones de Puebla.'
-  },
-  {
-    year: '1987',
-    title: 'Patrimonio Mundial de la UNESCO',
-    text: 'El Centro Histórico de Puebla, del que El Parián forma parte, se inscribe en la Lista del Patrimonio Mundial por su valor urbano y arquitectónico.'
-  }
+ {year:'1801',title:'La antigua plazuela de San Roque',text:'La Asociación Nacional de Ciudades Mexicanas del Patrimonio Mundial relaciona la antigua plazuela de San Roque y El Parián con 1801.'},
+ {year:'1961',title:'La etapa del mercado de artesanías',text:'La misma descripción histórica sitúa desde 1961 el uso del antiguo mercado como mercado artesanal. Son referencias históricas, no una garantía de las condiciones actuales de cada local.'}
 ] as const;
 
 export const services = [
@@ -115,42 +90,8 @@ export const services = [
 ] as const;
 
 export const stories = [
-  {
-    kind: 'documentado',
-    tag: 'Historia documentada',
-    title: 'Una noche de fuego frente a la Catedral',
-    text: 'El 7 de enero de 1796, al día siguiente del Día de Reyes, un incendio de causa no documentada consumió 23 estancos de madera instalados en el Portal de las Flores, frente al Sagrario de la Catedral. La plaza de comercio quedó en cenizas y la ciudad necesitó reubicar a los mercaderes.'
-  },
-  {
-    kind: 'documentado',
-    tag: 'Historia documentada',
-    title: 'El intendente y el arquitecto',
-    text: 'El intendente Manuel de Flón (1786–1811), primer gobernante con ese cargo en Puebla, encargó al arquitecto Antonio Santamaría Inchárragui el diseño de los nuevos locales. El mismo arquitecto es autor de la Casa de Alfeñique y de la Fuente de San Miguel, por lo que su firma está en varias piezas clave del patrimonio poblanos.'
-  },
-  {
-    kind: 'documentado',
-    tag: 'Origen del nombre',
-    title: 'Un nombre que cruzó el océano',
-    text: 'Se atribuye a la palabra "parián" un origen vinculado con el comercio asiático: en Manila, el Parián era el barrio de comerciantes chinos o sangleyes. La palabra habría llegado a la Nueva España con el comercio transpacífico del Galeón de Manila.'
-  },
-  {
-    kind: 'tradición',
-    tag: 'Tradición local',
-    title: 'Los arrieros y la Plaza del Varadillo',
-    text: 'Otra explicación popular relaciona el nombre con los arrieros que transitaban la zona trayendo mercancías de Veracruz, Oaxaca y Guerrero. La antigua plaza se conocía como Plaza del Varadillo, y su vocación de paso y trueque precedió al edificio actual.'
-  },
-  {
-    kind: 'documentado',
-    tag: 'Historia documentada',
-    title: 'De mercado general a vitrina de artesanías',
-    text: 'Durante más de siglo y medio El Parián funcionó como un mercado general. En 1961 se convirtió formalmente en el mercado típico de artesanías, concentrando la producción de distintos pueblos de Puebla en un solo recorrido.'
-  },
-  {
-    kind: 'tradición',
-    tag: 'Tradición local',
-    title: 'La Talavera con nombre protegido',
-    text: 'La cerámica que hoy se vende en El Parián sigue una tradición del siglo XVI. Solo las piezas elaboradas en talleres certificados pueden llamarse "Talavera" con denominación de origen; al comprar, conviene preguntar por la certificación y la procedencia.'
-  }
+ {kind:'documentado',tag:'Descripción publicada',title:'Un conjunto de locales artesanales',text:'La descripción de Ciudades Patrimonio menciona 112 locales. Es una cifra publicada en esa fuente, no un recuento en tiempo real de puestos abiertos ni una garantía de disponibilidad.'},
+ {kind:'documentado',tag:'Artesanías descritas',title:'Materiales y oficios de Puebla',text:'La fuente enumera cerámica, textiles, trabajo en cuero, madera, palma y vidrio entre la oferta artesanal. La selección y los horarios dependen de cada vendedor.'}
 ] as const;
 
 export const etiquette = {
@@ -193,7 +134,7 @@ export const photoSpots = [
 export const faqs = [
   {
     q: '¿Cuál es el horario de El Parián en Puebla?',
-    a: 'La información turística del Municipio de Puebla publica un horario de lunes a domingo, de 10:00 a 20:00. Conviene verificar cambios extraordinarios en días festivos o eventos especiales antes de ir.'
+    a: 'Turismo municipal publica 10:00–20:00 todos los días. Google Maps, consultado el 23 de octubre de 2026, muestra 10:00–21:00 en una ficha con dirección de local 111. Los puestos pueden tener horarios distintos: confirma con el vendedor, sobre todo para una visita al cierre.'
   },
   {
     q: '¿Se paga entrada para visitar el Mercado de Artesanías El Parián?',
@@ -225,7 +166,7 @@ export const faqs = [
   },
   {
     q: '¿Es accesible para personas con movilidad reducida?',
-    a: 'El mercado ocupa corredores y pasillos en un edificio histórico del siglo XIX, por lo que pueden existir escalones y pasillos angostos. La información oficial no publica un plan de accesibilidad específico; conviene verificar las condiciones el mismo día.'
+    a: 'El mercado ocupa corredores y pasillos en un edificio histórico del siglo XIX, por lo que pueden existir escalones y pasillos angostos. Esta guía no ha verificado un itinerario accesible detallado; confirma las condiciones con el mercado antes de ir.'
   },
   {
     q: '¿Se permite tomar fotografías en el mercado?',
@@ -360,7 +301,7 @@ export const visitorResponsibility = [
   {
     icon: '◆',
     title: 'Autenticidad de la artesanía',
-    text: 'Pregunta por material y procedencia; la Talavera con denominación de origen solo sale de talleres certificados. Comparar en varios puestos es parte de la experiencia.'
+    text: 'Pregunta por material, autoría, procedencia y documentación de las piezas anunciadas como Talavera. Compara la información y los precios de varios vendedores.'
   },
   {
     icon: '✽',

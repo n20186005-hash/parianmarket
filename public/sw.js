@@ -1,7 +1,7 @@
 /* Service Worker — Guía de El Parián Puebla (parianmarket.com) */
-const VERSION = 'elparian-v1';
-const SHELL_CACHE = 'elparian-shell-v1';
-const ASSET_CACHE = 'elparian-assets-v1';
+const VERSION = 'elparian-v2';
+const SHELL_CACHE = 'elparian-shell-v2';
+const ASSET_CACHE = 'elparian-assets-v2';
 
 const SHELL = [
   '/',
@@ -10,7 +10,7 @@ const SHELL = [
   '/icons/favicon-32.png',
   '/icons/favicon-16.png',
   '/icons/apple-touch-icon.png',
-  '/images/og-el-parian.jpg',
+  '/images/parian-concept.svg',
 ];
 
 self.addEventListener('install', (event) => {
@@ -46,10 +46,10 @@ self.addEventListener('fetch', (event) => {
       fetch(request)
         .then((response) => {
           const copy = response.clone();
-          caches.open(SHELL_CACHE).then((cache) => cache.put('/', copy));
+          if (response.status === 200) caches.open(SHELL_CACHE).then((cache) => cache.put(request, copy));
           return response;
         })
-        .catch(() => caches.match('/'))
+        .catch(async () => (await caches.match(request)) || new Response('Offline / Sin conexión', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }))
     );
     return;
   }

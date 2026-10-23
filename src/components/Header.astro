@@ -8,6 +8,7 @@ interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const ui = content[locale].ui;
 const prefix = locale === 'es' ? '' : '/en';
+const topic = Astro.url.pathname.replace(/^\/en(?=\/)/, '').replace(/^\/404\/$/, '/404');
 const navItems = [
   { id: 'historia', label: ui.nav.historia },
   { id: 'historias', label: ui.nav.historias },
@@ -19,16 +20,16 @@ const navItems = [
 ---
 <header class="site-header">
   <div class="wrap header-inner">
-    <Logo />
+    <Logo locale={locale} />
     <nav aria-label="Navegación principal">
       {navItems.map((n) => <a href={`${prefix}/#${n.id}`}>{n.label}</a>)}
     </nav>
     <div class="header-right">
       <a class="button button-small" href={attraction.googleMaps} target="_blank" rel="noopener noreferrer">{ui.ctaLlegar}</a>
       <div class="lang-switch" aria-label={ui.langSwitch.label}>
-        <a href="/" hreflang="es" lang="es" class={locale === 'es' ? 'active' : ''}>ES</a>
+        <a href={topic} hreflang="es" lang="es" class={locale === 'es' ? 'active' : ''}>ES</a>
         <span aria-hidden="true">/</span>
-        <a href="/en/" hreflang="en" lang="en" class={locale === 'en' ? 'active' : ''}>EN</a>
+        <a href={'/en' + topic + (topic === '/404' ? '/' : '')} hreflang="en" lang="en" class={locale === 'en' ? 'active' : ''}>EN</a>
       </div>
     </div>
   </div>

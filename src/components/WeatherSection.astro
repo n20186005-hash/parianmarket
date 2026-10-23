@@ -21,7 +21,7 @@ const copy = content[locale].weather;
 </section>
 
 <script>
-  import { buildWeatherUrl, wmo, shortDay, kmhToBeaufort, buildAdvice } from '../lib/weather';
+  import { buildWeatherUrl, wmo, shortDay, kmhToBeaufort, buildAdvice, validWeather, normalizeWeather } from '../lib/weather';
 
   type Locale = 'es' | 'en';
   const CACHE_TTL = 30 * 60 * 1000;
@@ -33,17 +33,17 @@ const copy = content[locale].weather;
   const render = (data: any, locale: Locale) => {
     const now = data.now;
     const day = data.days[0];
-    const cur = wmo(now.code);
+    const cur = wmo(now.code,locale);
     const bft = kmhToBeaufort(now.windSpeed);
     const advice = buildAdvice(data, locale);
     const labels = locale === 'es'
-      ? { outfit: '出行穿搭', plan: '游玩安排', items: '随身物品', risk: '风险提醒', pop: 'lluvia' }
+      ? { outfit: 'Qué vestir', plan: 'Qué hacer', items: 'Qué llevar', risk: 'Precauciones', pop: 'lluvia' }
       : { outfit: 'What to wear', plan: 'What to do', items: 'What to bring', risk: 'Risk', pop: 'rain' };
     const days = data.days
       .map((d: any) => {
-        const c = wmo(d.code);
+        const c = wmo(d.code,locale);
         return `<div class="wday">
-          <span class="wd-name">${shortDay(d.date)}</span>
+          <span class="wd-name">${shortDay(d.date,locale)}</span>
           <span class="wd-ico">${c.icon}</span>
           <span class="wd-lab">${c.label}</span>
           <span class="wd-temp">${Math.round(d.tMax)}° / ${Math.round(d.tMin)}°</span>
@@ -77,7 +77,7 @@ const copy = content[locale].weather;
       ${advice.risk.length ? `<div class="w-alert"><strong>⚠️ ${labels.risk}</strong><ul>${risks}</ul></div>` : ''}
       <div class="w-advice3">${adviceBlocks}</div>
       <div class="w-grid">${days}</div>
-      <p class="w-note">${locale === 'es' ? 'Pronóstico consultado el' : 'Forecast checked on'} ${new Date(data.fetchedAt).toLocaleString(locale === 'es' ? 'es-MX' : 'en-US')}.</p>
+      <p class="w-note">${locale === 'es' ? 'Modelo del área, no medición del mercado. UV de referencia: máximo diario. Pronóstico consultado el' : 'Area model, not a market measurement. UV reference: daily maximum. Forecast checked on'} ${new Date(data.fetchedAt).toLocaleString(locale === 'es' ? 'es-MX' : 'en-US')}.</p>
     `;
   };
 
@@ -91,40 +91,14 @@ const copy = content[locale].weather;
     const lon = parseFloat(el.dataset.lon || '0');
     const key = `elparian-weather-${locale}-${lat.toFixed(3)},${lon.toFixed(3)}`;
     try {
-      const cached = JSON.parse(localStorage.getItem(key) || 'null');
-      if (cached && cached.fetchedAt && Date.now() - cached.fetchedAt < CACHE_TTL) {
-        render(cached, locale);
-      } else {
-        const res = await fetch(buildWeatherUrl(lat, lon));
-        if (!res.ok) throw new Error('bad');
-        const j = await res.json();
-        const data = {
-          now: {
-            temperature: j.current.temperature_2m,
-            apparent: j.current.apparent_temperature,
-            humidity: j.current.relative_humidity_2m,
-            windSpeed: j.current.wind_speed_10m,
-            code: j.current.weather_code,
-            isDay: j.current.is_day,
-            uv: j.current.uv_index
-          },
-          days: j.daily.time.map((t: string, i: number) => ({
-            date: t,
-            code: j.daily.weather_code[i],
-            tMax: j.daily.temperature_2m_max[i],
-            tMin: j.daily.temperature_2m_min[i],
-            precipProb: j.daily.precipitation_probability_max[i],
-            windMax: j.daily.wind_speed_10m_max[i],
-            uvMax: j.daily.uv_index_max[i]
-          })),
-          timezone: j.timezone,
-          fetchedAt: Date.now()
-        };
-        localStorage.setItem(key, JSON.stringify(data));
-        render(data, locale);
+      let cached=null;try{cached=JSON.parse(localStorage.getItem(key)||'null');}catch{}
+      if(validWeather(cached)&&Date.now()-cached.fetchedAt<CACHE_TTL){render(cached,locale);}
+      else{
+        const res=await fetch(buildWeatherUrl(lat,lon));if(!res.ok)throw Error('Forecast unavailable');
+        const data=normalizeWeather(await res.json());
+        try{localStorage.setItem(key,JSON.stringify(data));}catch{}
+        render(data,locale);
       }
-    } catch (e) {
-      fail(locale);
-    }
+    }catch{fail(locale);}
   }
 </script>

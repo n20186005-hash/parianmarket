@@ -33,7 +33,7 @@ export function buildWeatherUrl(lat: number, lon: number): string {
   const p = new URLSearchParams({
     latitude: String(lat),
     longitude: String(lon),
-    current: 'temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,wind_speed_10m,uv_index',
+    current: 'temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,wind_speed_10m',
     daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,uv_index_max',
     timezone: 'America/Mexico_City',
     forecast_days: '7',
@@ -71,8 +71,10 @@ const WMO: Record<number, { label: string; icon: string }> = {
   99: { label: 'Tormenta con granizo', icon: '⛈' }
 };
 
-export function wmo(code: number): { label: string; icon: string } {
-  return WMO[code] ?? { label: 'Condición variable', icon: '🌡' };
+const WMO_EN: Record<number,string> = {0:'Clear',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Fog',48:'Rime fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',56:'Freezing drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',66:'Freezing rain',71:'Light snow',73:'Snow',75:'Heavy snow',77:'Snow grains',80:'Rain showers',81:'Rain showers',82:'Heavy showers',85:'Snow showers',95:'Thunderstorm',96:'Thunderstorm with hail',99:'Thunderstorm with hail'};
+export function wmo(code: number,locale: 'es'|'en'='es'): { label: string; icon: string } {
+ const item=WMO[code] ?? { label: 'Condición variable', icon: '🌡' };
+ return locale==='en'?{icon:item.icon,label:WMO_EN[code]||'Variable conditions'}:item;
 }
 
 // Conversión de km/h a escala de Beaufort.
@@ -87,13 +89,13 @@ export function kmhToBeaufort(kmh: number): number {
 
 const WD = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
 
-export function dayLabel(iso: string): string {
+export function dayLabel(iso: string,locale: 'es'|'en'='es'): string {
   const d = new Date(`${iso}T00:00:00`);
-  return WD[d.getDay()];
+  return (locale==='es'?WD:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'])[d.getDay()];
 }
 
-export function shortDay(iso: string): string {
-  return dayLabel(iso).slice(0, 3);
+export function shortDay(iso: string,locale: 'es'|'en'='es'): string {
+  return dayLabel(iso,locale).slice(0, 3);
 }
 
 type Locale = 'es' | 'en';
@@ -152,7 +154,7 @@ const PHRASES: Record<Locale, Phrases> = {
     windPlan: 'Viento notable: sujeta bolsas y objetos ligeros al recorrer los pasillos.',
     windItems: 'Gorra (se la lleva el viento); evita faldas muy amplias.',
     clearPlan: 'Día despejado: ideal para recorrer los pasillos y fotografiar los arcos.',
-    cloudyPlan: 'Cielo nublado: luz suave, excelente para fotos y paseos largos sin sol fuerte.',
+    cloudyPlan: 'Cielo nublado: la luz puede ser difusa para fotos; adapta el paseo al UV y a las condiciones reales.',
     windWord: (b) => (b <= 2 ? 'leve' : b <= 4 ? 'moderado' : b <= 6 ? 'notable' : 'fuerte'),
     uvWord: (u) => (u >= 6 ? 'fuerte' : u >= 3 ? 'moderada' : 'baja')
   },
@@ -180,7 +182,7 @@ const PHRASES: Record<Locale, Phrases> = {
     windPlan: 'Noticeable wind: hold bags and light objects while walking the aisles.',
     windItems: 'Cap (the wind takes it); avoid very wide skirts.',
     clearPlan: 'Clear day: ideal to walk the aisles and photograph the arches.',
-    cloudyPlan: 'Cloudy sky: soft light, excellent for photos and long walks without strong sun.',
+    cloudyPlan: 'Cloudy sky: light may be diffuse for photos; adapt your walk to UV levels and actual conditions.',
     windWord: (b) => (b <= 2 ? 'light' : b <= 4 ? 'moderate' : b <= 6 ? 'breezy' : 'strong'),
     uvWord: (u) => (u >= 6 ? 'strong' : u >= 3 ? 'moderate' : 'low')
   }
@@ -265,7 +267,7 @@ export function buildAdvice(d: WeatherData, locale: Locale = 'es'): Advice {
     out.plan.push(T.cloudyPlan);
   }
 
-  const cur = wmo(code);
+  const cur = wmo(code,locale);
   const windWord = T.windWord(bft);
   const uvWord = T.uvWord(uv);
   out.summary = T.summary(cur.label, tMin, tMax, windWord, uvWord);
@@ -275,4 +277,18 @@ export function buildAdvice(d: WeatherData, locale: Locale = 'es'): Advice {
   out.items = [...new Set(out.items)];
   out.risk = [...new Set(out.risk)];
   return out;
+}
+
+// Validate every numeric field consumed by the existing view/advice before formatting.
+export function validWeather(data: any): data is WeatherData {
+ const num=(v:any)=>typeof v==='number'&&Number.isFinite(v);
+ return !!data&&num(data.fetchedAt)&&data.fetchedAt<=Date.now()&&!!data.now&&['temperature','apparent','humidity','windSpeed','code','isDay','uv'].every(k=>num(data.now[k]))&&Array.isArray(data.days)&&data.days.length===7&&data.days.every((d:any)=>d&&/^\d{4}-\d{2}-\d{2}$/.test(d.date)&&['code','tMax','tMin','precipProb','windMax','uvMax'].every(k=>num(d[k])));
+}
+export function normalizeWeather(j:any):WeatherData {
+ const current=['temperature_2m','apparent_temperature','relative_humidity_2m','wind_speed_10m','weather_code','is_day'];
+ const daily=['weather_code','temperature_2m_max','temperature_2m_min','precipitation_probability_max','wind_speed_10m_max','uv_index_max'];
+ const num=(v:any)=>typeof v==='number'&&Number.isFinite(v);
+ if(!j?.current||!current.every(k=>num(j.current[k]))||!j.daily||!Array.isArray(j.daily.time)||j.daily.time.length!==7||!daily.every(k=>Array.isArray(j.daily[k])&&j.daily[k].length===7&&j.daily[k].every(num)))throw Error('Incomplete forecast');
+ const data={now:{temperature:j.current.temperature_2m,apparent:j.current.apparent_temperature,humidity:j.current.relative_humidity_2m,windSpeed:j.current.wind_speed_10m,code:j.current.weather_code,isDay:j.current.is_day,uv:j.daily.uv_index_max[0]},days:j.daily.time.map((date:string,i:number)=>({date,code:j.daily.weather_code[i],tMax:j.daily.temperature_2m_max[i],tMin:j.daily.temperature_2m_min[i],precipProb:j.daily.precipitation_probability_max[i],windMax:j.daily.wind_speed_10m_max[i],uvMax:j.daily.uv_index_max[i]})),timezone:'America/Mexico_City',fetchedAt:Date.now()};
+ if(!validWeather(data))throw Error('Invalid forecast');return data;
 }

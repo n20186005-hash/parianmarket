@@ -47,6 +47,7 @@ const prefix = locale === 'es' ? '' : '/en';
   </div>
 </section>
 
+<section class="section" aria-labelledby="shopping-plan"><div class="wrap prose"><h2 id="shopping-plan">{locale === 'es' ? 'Qué comprar y cómo organizar la visita' : 'What to buy and how to plan your visit'}</h2><p>{locale === 'es' ? 'Compara cerámica, textiles y recuerdos entre puestos; pregunta por material, autoría, procedencia y precio antes de pagar. Una pieza anunciada como Talavera no demuestra por sí sola certificación. Acuerda con cada vendedor formas de pago, embalaje y envío; esta guía no vende productos ni entradas.' : 'Compare ceramics, textiles and souvenirs across stalls; ask about material, maker, origin and price before paying. A Talavera label alone does not establish certification. Check payment, packing and shipping with each seller; this guide sells no products or tickets.'}</p><p>{locale === 'es' ? 'La visita puede combinarse con el Barrio del Artista y el Centro Histórico. Los tiempos de recorrido son sugerencias editoriales; las iglesias, museos y comercios cercanos tienen sus propios horarios.' : 'You can combine the market with the Barrio del Artista and Historic Centre. Suggested visit lengths are editorial estimates; nearby churches, museums and shops keep their own hours.'}</p></div></section>
 <section class="identity-strip" aria-label="Identidad del lugar">
   <div class="wrap identity-grid">
     {copy.identity.map((it) => (
@@ -176,12 +177,13 @@ const prefix = locale === 'es' ? '' : '/en';
       <p class="eyebrow">{copy.map.eyebrow}</p>
       <h2>{copy.map.h2}</h2>
       {copy.map.linesHtml.map((l) => <p set:html={l} />)}
-      <p><strong>{copy.map.plusCodeLabel}</strong> {attraction.plusCode} · {copy.map.plusCodeTail}</p>
+      <p><strong>{locale === 'es' ? 'Punto de la ficha de Maps:' : 'Maps listing point:'}</strong> {attraction.plusCode}</p>
+      <p>{locale === 'es' ? 'Turismo municipal publica 10:00–20:00 todos los días. La ficha de Google Maps consultada el 23 de octubre de 2026 muestra 10:00–21:00 y una dirección de local 111: no confirma el horario de todos los vendedores. Verifica con el puesto antes de ir tarde.' : 'Municipal tourism lists 10:00–20:00 daily. The Google Maps listing checked on 23 October 2026 shows 10:00–21:00 and an address for stall 111: it does not confirm every vendor’s hours. Check with the stall before a late visit.'}</p>
       <p class="micro">{copy.map.micro}</p>
       <p class="gov-links" set:html={copy.map.govLinksHtml} />
     </div>
     <div class="map-frame">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6708.104670377674!2d-98.19585762292813!3d19.04317938215455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc0e650a29417%3A0x11077ba00041cd86!2sParian%20market!5e1!3m2!1szh-CN!2s!4v1788188691479!5m2!1szh-CN!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title={copy.map.iframeTitle}></iframe>
+      <iframe src={`https://www.google.com/maps?q=${attraction.latitude},${attraction.longitude}&output=embed&hl=${locale}`} width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title={copy.map.iframeTitle}></iframe>
     </div>
   </div>
 </section>
@@ -219,13 +221,10 @@ const prefix = locale === 'es' ? '' : '/en';
       <p>{copy.galeria.lead}</p>
     </div>
     <div class="gallery-grid">
-      {copy.galeria.items.map((item) => (
+      {[['parian-concept.svg', 'Arcos y cerámica / Arches and ceramics'], ['parian-tiles.svg', 'Patrones y color / Patterns and colour'], ['parian-textiles.svg', 'Textiles y oficios / Textiles and crafts']].map(([file, label]) => (
         <figure class="gallery-item">
-          <img src="/images/el-parian-hero.jpg" alt={item.alt} width="4000" height="3000" loading="lazy" decoding="async" />
-          <figcaption>
-            <span class="gallery-cap">{item.cap}</span>
-            <span class="gallery-credit">{copy.galeria.creditLabel}: {item.author} · <a href={item.href} target="_blank" rel="noopener noreferrer">{copy.galeria.seeLabel}</a></span>
-          </figcaption>
+          <img src={'/images/' + file} alt={locale === 'es' ? 'Ilustración conceptual: ' + label.split(' / ')[0] : 'Conceptual illustration: ' + label.split(' / ')[1]} width="1200" height="800" loading="lazy" decoding="async" />
+          <figcaption><span class="gallery-cap">{locale === 'es' ? label.split(' / ')[0] : label.split(' / ')[1]}</span><span class="gallery-credit">{locale === 'es' ? 'Ilustración conceptual original de esta guía · no es fotografía del lugar · CC0' : 'Original conceptual illustration by this guide · not a site photograph · CC0'}</span></figcaption>
         </figure>
       ))}
     </div>
@@ -254,6 +253,7 @@ const prefix = locale === 'es' ? '' : '/en';
     <p class="eyebrow">{copy.temporadas.eyebrow}</p>
     <h2>{copy.temporadas.h2}</h2>
     <p class="lead">{copy.temporadas.lead}</p>
+    <div class="strategy-table-scroll" role="region" tabindex="0" aria-label={locale === 'es' ? 'Tabla de estrategias por temporada; desplazamiento horizontal disponible si es necesario' : 'Seasonal strategy table; scroll horizontally if needed'}>
     <table class="strategy-table">
       <thead><tr>{copy.temporadas.tableHead.map((h) => <th>{h}</th>)}</tr></thead>
       <tbody>
@@ -267,6 +267,7 @@ const prefix = locale === 'es' ? '' : '/en';
         ))}
       </tbody>
     </table>
+    </div>
     <p class="climate-note">{copy.temporadas.climateNote}</p>
   </div>
 </section>
