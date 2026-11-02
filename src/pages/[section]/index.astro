@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { attraction } from '../../data/site';
+import { getGuideSectionUrl, getGuideUrl, getGuidesBySection, guideSectionMeta, guideSectionOrder } from '../../data/guides';
+
+export function getStaticPaths() {
+  return guideSectionOrder.map((section) => ({
+    params: { section },
+    props: {
+      section,
+      meta: guideSectionMeta[section],
+      pages: getGuidesBySection(section)
+    }
+  }));
+}
+
+const { section, meta, pages } = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      name: meta.label,
+      description: meta.intro,
+      ...(Astro.site ? { url: new URL(getGuideSectionUrl(section), Astro.site).href } : {}),
+      about: {
+        '@type': 'TouristAttraction',
+        name: attraction.name,
+        sameAs: [attraction.googleMaps]
+      }
+    }
+  ]
+};
+---
+<BaseLayout
+  locale="es"
+  title={`${meta.label} | ${attraction.shortName}`}
+  description={meta.intro}
+  schema={schema}
+  alternateLocales={false}
+  showLangSwitch={false}
+>
+  <section class="guide-hero">
+    <div class="wrap">
+      <nav class="guide-breadcrumb" aria-label="Migas de pan">
+        <a href="/">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>{meta.label}</span>
+      </nav>
+      <p class="eyebrow">Guía temática</p>
+      <h1>{meta.label}</h1>
+      <p class="guide-intro">{meta.intro}</p>
+      <div class="guide-facts">
+        <article class="guide-fact">
+          <small>Páginas</small>
+          <strong>{pages.length} guías</strong>
+        </article>
+        <article class="guide-fact">
+          <small>Destino</small>
+          <strong>{attraction.shortName}</strong>
+        </article>
+        <article class="guide-fact">
+          <small>Uso</small>
+          <strong>Elegir mejor y visitar con contexto</strong>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Explorar tema</p>
+          <h2>Páginas disponibles</h2>
+        </div>
+        <p>Estas URLs desarrollan búsquedas concretas sin repetir contenido vacío. Cada una enlaza con otras páginas cercanas del mismo clúster.</p>
+      </div>
+      <div class="guide-directory-grid">
+        {pages.map((page) => (
+          <article class="guide-directory-card guide-directory-card--page">
+            <p class="guide-card-priority">{page.priority}</p>
+            <h3><a href={getGuideUrl(page)}>{page.h1}</a></h3>
+            <p>{page.description}</p>
+            <a class="guide-card-link" href={getGuideUrl(page)}>Abrir guía</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

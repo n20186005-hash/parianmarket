@@ -1,7 +1,7 @@
 // Contenido en inglés de las listas basadas en datos.
 // Los nombres propios (attraction) y los enlaces oficiales (authorityLinks) son
 // compartidos desde site.ts, ya que no requieren traducción.
-export { attraction, authorityLinks, SITE_NAME } from './site';
+export { attraction, authorityLinks, SITE_NAME, mapsSnapshot } from './site';
 
 export const timeline = [
  {year:'1801',title:'The former San Roque square',text:'The National Association of Mexican World Heritage Cities associates the former San Roque square and El Parián with 1801.'},
@@ -112,7 +112,7 @@ export const photoSpots = [
 export const faqs = [
   {
     q: 'What are the opening hours of El Parián in Puebla?',
-    a: 'Municipal tourism lists 10:00–20:00 daily. Google Maps, checked on 23 October 2026, shows 10:00–21:00 on a listing addressed to stall 111. Individual stalls may differ: check with the vendor, especially for a late visit.'
+    a: 'Municipal tourism lists 10:00–20:00 daily. Google Maps, checked on 2 November 2026, shows 10:00–21:00 on a listing addressed to stall 111. Individual stalls may differ: check with the vendor, especially for a late visit.'
   },
   {
     q: 'Is there an entrance fee to visit the Mercado de Artesanías El Parián?',

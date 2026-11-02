@@ -1,0 +1,85 @@
+---
+import { getGuideSectionUrl, getGuideUrl, getRelatedGuides, guideSectionMeta, sourceCatalog } from '../data/guides';
+import type { GuidePage } from '../data/guides';
+
+interface Props {
+  page: GuidePage;
+}
+
+const { page } = Astro.props;
+const related = getRelatedGuides(page.related);
+const sectionMeta = guideSectionMeta[page.section];
+---
+<article class="guide-page">
+  <section class="guide-hero">
+    <div class="wrap">
+      <nav class="guide-breadcrumb" aria-label="Migas de pan">
+        <a href="/">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href={getGuideSectionUrl(page.section)}>{sectionMeta.label}</a>
+        <span aria-hidden="true">›</span>
+        <span>{page.h1}</span>
+      </nav>
+      <p class="eyebrow">{page.kicker}</p>
+      <h1>{page.h1}</h1>
+      <p class="guide-intro">{page.intro}</p>
+      <div class="guide-facts">
+        {page.facts.map((fact) => (
+          <article class="guide-fact">
+            <small>{fact.label}</small>
+            <strong>{fact.value}</strong>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap guide-grid">
+      <div class="guide-main">
+        {page.sections.map((section) => (
+          <section class="guide-block">
+            <h2>{section.h2}</h2>
+            <p>{section.text}</p>
+          </section>
+        ))}
+        {page.caution && (
+          <div class="guide-note">
+            <strong>Nota editorial:</strong> {page.caution}
+          </div>
+        )}
+      </div>
+      <aside class="guide-side">
+        <section class="guide-panel">
+          <p class="eyebrow">Ficha rapida</p>
+          <h2>{sectionMeta.label}</h2>
+          <p>{sectionMeta.intro}</p>
+          <p><strong>Prioridad del plan:</strong> {page.priority}</p>
+          <p><strong>Ultima revision:</strong> {page.reviewed}</p>
+        </section>
+
+        <section class="guide-panel">
+          <p class="eyebrow">Fuentes</p>
+          <ul class="guide-list">
+            {page.sources.map((sourceKey) => (
+              <li>
+                <a href={sourceCatalog[sourceKey].url} target="_blank" rel="noopener noreferrer">
+                  {sourceCatalog[sourceKey].label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="guide-panel">
+          <p class="eyebrow">Guias relacionadas</p>
+          <ul class="guide-list">
+            {related.map((item) => (
+              <li><a href={getGuideUrl(item)}>{item.h1}</a></li>
+            ))}
+          </ul>
+        </section>
+      </aside>
+    </div>
+  </section>
+</article>

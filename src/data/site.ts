@@ -6,16 +6,25 @@ export const attraction = {
   state: 'Puebla',
   country: 'México',
   officialAddress: '6 Norte 205, Centro Histórico, 72000 Heroica Puebla de Zaragoza, Pue., México',
-  mapsAddress: 'Mercado de artesanías El Parián local 111, 72000 Heroica Puebla de Zaragoza, Pue., México',
-  plusCode: '19.0431794, -98.1932827',
+  mapsAddress: 'Mercado de Artesanías El Parián local 111, 72000 Heroica Puebla de Zaragoza, Pue., México',
+  plusCode: '2RV4+7M Heroica Puebla de Zaragoza, Puebla, México',
   latitude: 19.0431794,
   longitude: -98.1932827,
   googleMaps: 'https://maps.app.goo.gl/N9nQNtMzptexARSx7',
   rating: 4.5,
-  reviewCount: 28659,
+  reviewCount: 28692,
   openingHours: '10:00–20:00',
   openingDays: 'Lunes a domingo',
   gaId: 'G-HXM22WWPKP',
+} as const;
+
+export const mapsSnapshot = {
+  rating: 4.5,
+  reviewCount: 28692,
+  reviewDateEs: '2 nov 2026',
+  reviewDateEn: '2 Nov 2026',
+  openingHours: '10:00–21:00',
+  address: 'Mercado de Artesanías El Parián local 111, 72000 Heroica Puebla de Zaragoza, Pue., México',
 } as const;
 
 export const authorityLinks = [
@@ -134,7 +143,7 @@ export const photoSpots = [
 export const faqs = [
   {
     q: '¿Cuál es el horario de El Parián en Puebla?',
-    a: 'Turismo municipal publica 10:00–20:00 todos los días. Google Maps, consultado el 23 de octubre de 2026, muestra 10:00–21:00 en una ficha con dirección de local 111. Los puestos pueden tener horarios distintos: confirma con el vendedor, sobre todo para una visita al cierre.'
+    a: 'Turismo municipal publica 10:00–20:00 todos los días. Google Maps, consultado el 2 de noviembre de 2026, muestra 10:00–21:00 en una ficha con dirección de local 111. Los puestos pueden tener horarios distintos: confirma con el vendedor, sobre todo para una visita al cierre.'
   },
   {
     q: '¿Se paga entrada para visitar el Mercado de Artesanías El Parián?',

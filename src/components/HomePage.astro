@@ -1,6 +1,7 @@
 ---
 import { content } from '../data/content';
-import { attraction } from '../data/site';
+import { attraction, mapsSnapshot } from '../data/site';
+import { getGuideSectionUrl, getGuideUrl, getGuidesBySection, guideSectionMeta } from '../data/guides';
 import * as es from '../data/site';
 import * as en from '../data/site.en';
 import WeatherSection from './WeatherSection.astro';
@@ -10,6 +11,11 @@ const { locale } = Astro.props;
 const copy = content[locale];
 const data = locale === 'es' ? es : en;
 const prefix = locale === 'es' ? '' : '/en';
+const guideSections = locale === 'es' ? (['mercado', 'visita', 'cerca', 'comer', 'rutas', 'alojamiento'] as const).map((section) => ({
+  section,
+  meta: guideSectionMeta[section],
+  pages: getGuidesBySection(section)
+})) : [];
 ---
 <section class="hero">
   <div class="wrap hero-grid">
@@ -48,6 +54,27 @@ const prefix = locale === 'es' ? '' : '/en';
 </section>
 
 <section class="section" aria-labelledby="shopping-plan"><div class="wrap prose"><h2 id="shopping-plan">{locale === 'es' ? 'Qué comprar y cómo organizar la visita' : 'What to buy and how to plan your visit'}</h2><p>{locale === 'es' ? 'Compara cerámica, textiles y recuerdos entre puestos; pregunta por material, autoría, procedencia y precio antes de pagar. Una pieza anunciada como Talavera no demuestra por sí sola certificación. Acuerda con cada vendedor formas de pago, embalaje y envío; esta guía no vende productos ni entradas.' : 'Compare ceramics, textiles and souvenirs across stalls; ask about material, maker, origin and price before paying. A Talavera label alone does not establish certification. Check payment, packing and shipping with each seller; this guide sells no products or tickets.'}</p><p>{locale === 'es' ? 'La visita puede combinarse con el Barrio del Artista y el Centro Histórico. Los tiempos de recorrido son sugerencias editoriales; las iglesias, museos y comercios cercanos tienen sus propios horarios.' : 'You can combine the market with the Barrio del Artista and Historic Centre. Suggested visit lengths are editorial estimates; nearby churches, museums and shops keep their own hours.'}</p></div></section>
+{locale === 'es' && (
+<section class="section guide-directory" aria-labelledby="guide-directory">
+  <div class="wrap">
+    <div class="section-heading">
+      <div><p class="eyebrow">Guías por tema</p><h2 id="guide-directory">40 páginas prácticas para planear mejor la visita</h2></div>
+      <p>El contenido principal del sitio sigue en la portada, pero ahora cada necesidad de búsqueda tiene su propia URL independiente.</p>
+    </div>
+    <div class="guide-directory-grid">
+      {guideSections.map((group) => (
+        <article class="guide-directory-card">
+          <h3><a href={getGuideSectionUrl(group.section)}>{group.meta.label}</a></h3>
+          <p>{group.meta.intro}</p>
+          <ul>
+            {group.pages.map((page) => <li><a href={getGuideUrl(page)}>{page.h1}</a></li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+)}
 <section class="identity-strip" aria-label="Identidad del lugar">
   <div class="wrap identity-grid">
     {copy.identity.map((it) => (
@@ -177,8 +204,8 @@ const prefix = locale === 'es' ? '' : '/en';
       <p class="eyebrow">{copy.map.eyebrow}</p>
       <h2>{copy.map.h2}</h2>
       {copy.map.linesHtml.map((l) => <p set:html={l} />)}
-      <p><strong>{locale === 'es' ? 'Punto de la ficha de Maps:' : 'Maps listing point:'}</strong> {attraction.plusCode}</p>
-      <p>{locale === 'es' ? 'Turismo municipal publica 10:00–20:00 todos los días. La ficha de Google Maps consultada el 23 de octubre de 2026 muestra 10:00–21:00 y una dirección de local 111: no confirma el horario de todos los vendedores. Verifica con el puesto antes de ir tarde.' : 'Municipal tourism lists 10:00–20:00 daily. The Google Maps listing checked on 23 October 2026 shows 10:00–21:00 and an address for stall 111: it does not confirm every vendor’s hours. Check with the stall before a late visit.'}</p>
+      <p><strong>{copy.map.plusCodeLabel}</strong> {attraction.plusCode}</p>
+      <p>{locale === 'es' ? `Turismo municipal publica 10:00–20:00 todos los días. La ficha de Google Maps consultada el ${mapsSnapshot.reviewDateEs} muestra ${mapsSnapshot.openingHours} y una dirección de local 111: no confirma el horario de todos los vendedores. Verifica con el puesto antes de ir tarde.` : `Municipal tourism lists 10:00–20:00 daily. The Google Maps listing checked on ${mapsSnapshot.reviewDateEn} shows ${mapsSnapshot.openingHours} and an address for stall 111: it does not confirm every vendor’s hours. Check with the stall before a late visit.`}</p>
       <p class="micro">{copy.map.micro}</p>
       <p class="gov-links" set:html={copy.map.govLinksHtml} />
     </div>

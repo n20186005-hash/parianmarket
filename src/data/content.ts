@@ -1,5 +1,10 @@
+import { attraction, mapsSnapshot } from './site';
+
 // Diccionario de textos de la interfaz (prosa que no vive en las listas de datos).
 // El español es la fuente principal; el inglés es su traducción para la versión /en/.
+const reviewCountEs = new Intl.NumberFormat('es-MX').format(mapsSnapshot.reviewCount);
+const reviewCountEn = new Intl.NumberFormat('en-US').format(mapsSnapshot.reviewCount);
+
 export const content = {
   es: {
     htmlLang: 'es-MX',
@@ -22,7 +27,7 @@ export const content = {
       trust: [
         { big: '10:00–20:00', small: 'Horario publicado por turismo municipal' },
         { big: '1801', small: 'Referencia histórica del mercado' },
-        { big: '4.5 / 5', small: 'Google Maps · 28,659 reseñas · 23 oct 2026' }
+        { big: `${attraction.rating} / 5`, small: `Google Maps · ${reviewCountEs} reseñas · ${mapsSnapshot.reviewDateEs}` }
       ],
       panel: {
         badge: 'PUEBLA',
@@ -100,7 +105,7 @@ export const content = {
       h2: 'Dos referencias de dirección, un mismo mercado',
       linesHtml: [
         '<strong>Turismo municipal:</strong> 6 Norte 205, Centro Histórico.',
-        '<strong>Ficha de Google Maps facilitada:</strong> Mercado de artesanías El Parián local 111, 72000 Heroica Puebla de Zaragoza.'
+        `<strong>Ficha de Google Maps facilitada:</strong> ${mapsSnapshot.address}.`
       ],
       plusCodeLabel: 'Plus Code:',
       plusCodeTail: 'Heroica Puebla de Zaragoza, Puebla, México.',
@@ -172,7 +177,7 @@ export const content = {
         { href: '/CREDITS.txt', strong: 'Créditos de esta guía', span: 'Ilustraciones originales conceptuales · CC0' }
       ],
       noteHtml:
-        '<p><strong>Nota editorial:</strong> guía independiente. Los horarios generales se contrastan con el directorio municipal y la descripción histórica con Ciudades Patrimonio; la ficha de Maps es una observación de terceros fechada. Los horarios y la oferta de cada vendedor pueden variar. Revisión: 23 de octubre de 2026.</p>'
+        '<p><strong>Nota editorial:</strong> guía independiente. Los horarios generales se contrastan con el directorio municipal y la descripción histórica con Ciudades Patrimonio; la ficha de Maps es una observación de terceros fechada. Los horarios y la oferta de cada vendedor pueden variar. Revisión: 2 de noviembre de 2026.</p>'
     },
     ui: {
       nav: { historia: 'Historia', historias: 'Historias', artesanias: 'Artesanías', galeria: 'Galería', servicios: 'Servicios', faq: 'FAQ' },
@@ -213,7 +218,7 @@ export const content = {
       trust: [
         { big: '10:00–20:00', small: 'Hours published by municipal tourism' },
         { big: '1801', small: 'Historical reference of the market' },
-        { big: '4.5 / 5', small: 'Google Maps · 28,659 reviews · 23 Oct 2026' }
+        { big: `${attraction.rating} / 5`, small: `Google Maps · ${reviewCountEn} reviews · ${mapsSnapshot.reviewDateEn}` }
       ],
       panel: {
         badge: 'PUEBLA',
@@ -291,7 +296,7 @@ export const content = {
       h2: 'Two address references, one market',
       linesHtml: [
         '<strong>Municipal tourism:</strong> 6 Norte 205, Centro Histórico.',
-        '<strong>Provided Google Maps sheet:</strong> Mercado de artesanías El Parián local 111, 72000 Heroica Puebla de Zaragoza.'
+        `<strong>Provided Google Maps sheet:</strong> ${mapsSnapshot.address}.`
       ],
       plusCodeLabel: 'Plus Code:',
       plusCodeTail: 'Heroica Puebla de Zaragoza, Puebla, Mexico.',
@@ -363,7 +368,7 @@ export const content = {
         { href: '/CREDITS.txt', strong: 'This guide’s credits', span: 'Original conceptual illustrations · CC0' }
       ],
       noteHtml:
-        '<p><strong>Editorial note:</strong> independent guide. General hours are checked against the municipal directory and historical context against the World Heritage Cities account; the Maps listing is a dated third-party observation. Individual vendors’ hours and selection may vary. Reviewed: 23 October 2026.</p>'
+        '<p><strong>Editorial note:</strong> independent guide. General hours are checked against the municipal directory and historical context against the World Heritage Cities account; the Maps listing is a dated third-party observation. Individual vendors’ hours and selection may vary. Reviewed: 2 November 2026.</p>'
     },
     ui: {
       nav: { historia: 'History', historias: 'Stories', artesanias: 'Crafts', galeria: 'Gallery', servicios: 'Services', faq: 'FAQ' },
