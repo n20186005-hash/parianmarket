@@ -270,12 +270,6 @@ const guideSections = locale === 'es' ? (['mercado', 'visita', 'cerca', 'comer',
           <figcaption><span class="gallery-cap">{locale === 'es' ? label.split(' / ')[0] : label.split(' / ')[1]}</span><span class="gallery-credit">{locale === 'es' ? 'Fotografía real recuperada del archivo del sitio' : 'Real photograph restored from the site archive'}</span></figcaption>
         </figure>
       ))}
-      {[['parian-concept.svg', 'Arcos y cerámica / Arches and ceramics'], ['parian-tiles.svg', 'Patrones y color / Patterns and colour'], ['parian-textiles.svg', 'Textiles y oficios / Textiles and crafts']].map(([file, label]) => (
-        <figure class="gallery-item">
-          <img src={'/images/' + file} alt={locale === 'es' ? 'Ilustración conceptual: ' + label.split(' / ')[0] : 'Conceptual illustration: ' + label.split(' / ')[1]} width="1200" height="800" loading="lazy" decoding="async" />
-          <figcaption><span class="gallery-cap">{locale === 'es' ? label.split(' / ')[0] : label.split(' / ')[1]}</span><span class="gallery-credit">{locale === 'es' ? 'Ilustración conceptual original de esta guía · no es fotografía del lugar · CC0' : 'Original conceptual illustration by this guide · not a site photograph · CC0'}</span></figcaption>
-        </figure>
-      ))}
     </div>
   </div>
 </section>
