@@ -45,6 +45,7 @@
 @media(max-width:900px){.site-header nav{display:none}.hero-grid,.split,.map-grid,.faq-wrap{grid-template-columns:1fr;gap:36px}.hero-panel{transform:none}.cards.four,.nearby-grid,.fac-grid{grid-template-columns:repeat(2,1fr)}.stories,.do-dont{grid-template-columns:1fr}.trust-row{grid-template-columns:1fr}.identity-grid{grid-template-columns:1fr}.section-heading{display:block}.footer-grid{grid-template-columns:1fr 1fr}.footer-grid>div:first-child{grid-column:1/-1}.timeline:before{left:0}}
 @media(max-width:620px){.wrap{width:min(100% - 28px,1180px)}.header-inner{min-height:68px}.site-header .button{display:none}.brand-mark{width:40px;height:40px}.hero{padding-top:50px}.hero-intro{font-size:17px}.cards.four,.visit-grid,.nearby-grid,.fac-grid,.source-links,.footer-grid{grid-template-columns:1fr}.section{padding:66px 0}.section h2,.map-section h2{font-size:38px}.map-frame iframe{min-height:360px}.cookie-card{align-items:flex-start;flex-direction:column}.timeline:before{display:none}.timeline li{grid-template-columns:1fr;gap:6px}.tl-year{text-align:left;font-size:26px}}
 /* ===== Galería documental ===== */
+.hero{background:linear-gradient(90deg,rgba(255,248,234,.96) 0%,rgba(255,248,234,.90) 48%,rgba(255,248,234,.48) 100%),url('/images/el-parian-hero.jpg') center/cover no-repeat}
 .section-gallery{background:#f6ecda}
 .gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:38px}
 .gallery-item{margin:0;background:var(--white);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(74,46,23,.05)}

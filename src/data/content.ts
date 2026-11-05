@@ -131,9 +131,9 @@ export const content = {
       lead: 'Ideas de encuadre para retratar el mercado con respeto por su actividad comercial.'
     },
     galeria: {
-      eyebrow: 'Ilustraciones conceptuales',
+      eyebrow: 'Fotografías e ilustraciones',
       h2: 'El Parián en imágenes',
-      lead: 'Gráficos originales sobre arcos, cerámica y textiles. Son ilustraciones conceptuales, no fotografías ni representaciones exactas del mercado actual.',
+      lead: 'Fotografías del mercado recuperadas del archivo del sitio, junto con las ilustraciones conceptuales originales.',
       creditLabel: 'Fotografía',
       seeLabel: 'Ver créditos de esta guía',
       items: []
@@ -322,9 +322,9 @@ export const content = {
       lead: 'Framing ideas to portray the market with respect for its commercial activity.'
     },
     galeria: {
-      eyebrow: 'Conceptual illustrations',
+      eyebrow: 'Photographs and illustrations',
       h2: 'El Parián in images',
-      lead: 'Original graphics about arches, ceramics and textiles. These are conceptual illustrations, not photographs or exact depictions of the current market.',
+      lead: 'Market photographs restored from the site archive, alongside the original conceptual illustrations.',
       creditLabel: 'Photograph',
       seeLabel: 'See this guide’s credits',
       items: []

@@ -248,6 +248,18 @@ const guideSections = locale === 'es' ? (['mercado', 'visita', 'cerca', 'comer',
       <p>{copy.galeria.lead}</p>
     </div>
     <div class="gallery-grid">
+      {[
+        ['el-parian-hero.jpg', 'Pasillos del mercado / Market aisles'],
+        ['el-parian-arcades.jpg', 'Vista del mercado / Market view'],
+        ['el-parian-stalls.jpg', 'Puestos de artesanía / Craft stalls'],
+        ['el-parian-detail.jpg', 'Detalle del mercado / Market detail'],
+        ['ceramica-puebla.jpg', 'Cerámica de Puebla / Puebla ceramics']
+      ].map(([file, label]) => (
+        <figure class="gallery-item">
+          <img src={'/images/' + file} alt={locale === 'es' ? label.split(' / ')[0] : label.split(' / ')[1]} width="1200" height="900" loading="lazy" decoding="async" />
+          <figcaption><span class="gallery-cap">{locale === 'es' ? label.split(' / ')[0] : label.split(' / ')[1]}</span><span class="gallery-credit">{locale === 'es' ? 'Fotografía recuperada del archivo histórico del sitio' : 'Photograph restored from the site’s historical archive'}</span></figcaption>
+        </figure>
+      ))}
       {[['parian-concept.svg', 'Arcos y cerámica / Arches and ceramics'], ['parian-tiles.svg', 'Patrones y color / Patterns and colour'], ['parian-textiles.svg', 'Textiles y oficios / Textiles and crafts']].map(([file, label]) => (
         <figure class="gallery-item">
           <img src={'/images/' + file} alt={locale === 'es' ? 'Ilustración conceptual: ' + label.split(' / ')[0] : 'Conceptual illustration: ' + label.split(' / ')[1]} width="1200" height="800" loading="lazy" decoding="async" />

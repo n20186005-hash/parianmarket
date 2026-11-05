@@ -10,7 +10,7 @@ export function buildSchema(locale: Locale, site?: URL) {
   const copy = content[locale];
   const pageUrl = site ? new URL(locale === 'es' ? '/' : '/en/', site).href : undefined;
   const entityId = site ? new URL(locale === 'es' ? '/#mercado-el-parian' : '/en/#mercado-el-parian', site).href : undefined;
-  const ogImage = site ? new URL('/images/parian-concept.svg', site).href : '/images/parian-concept.svg';
+  const ogImage = site ? new URL('/images/el-parian-hero.jpg', site).href : '/images/el-parian-hero.jpg';
 
   return {
     '@context': 'https://schema.org',
